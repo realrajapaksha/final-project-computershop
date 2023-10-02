@@ -6,10 +6,7 @@ import '../../../../routes/app_route.dart';
 import '../../../../utils/shared_values.dart';
 
 class SplashController extends GetxController {
-  final isUpdate = false.obs;
   final isRetry = false.obs;
-  final currentAppVersion = "1.0.0".obs;
-  final newAppVersion = "1.0.0".obs;
 
   Future<void> delaySplash(context) async {
     Future.delayed(const Duration(seconds: 2), () async {
@@ -17,7 +14,7 @@ class SplashController extends GetxController {
         bool internet = await InternetConnectionChecker().hasConnection;
         if (internet == true) {
           if (SharedValues.shared.isSignedIn) {
-            Navigator.popAndPushNamed(context, AppRoute.dashboard);
+            Navigator.popAndPushNamed(context, AppRoute.userDashboard);
           } else {
             Navigator.pushNamed(context, AppRoute.login);
           }

@@ -14,8 +14,7 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  SplashController splashController =
-  Get.put(SplashController());
+  SplashController splashController = Get.put(SplashController());
 
   @override
   void initState() {
@@ -52,16 +51,24 @@ class _SplashScreenState extends State<SplashScreen> {
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SvgPicture.asset("assets/images/logo-white.svg",
-                        width: 40, height: 40, fit: BoxFit.cover),
-                  ],
+                Container(
+                  width: 200,
+                  height: 200,
+                  decoration: const BoxDecoration(
+                    color: Colors.transparent,
+                    shape: BoxShape.circle,
+                    image: DecorationImage(
+                      filterQuality: FilterQuality.high,
+                        image: AssetImage('assets/images/logo.png'),
+                        fit: BoxFit.fill),
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
                 ),
                 const AppText(
-                  text: "Event Management",
-                  size: 16,
+                  text: "NANOTEK COMPUTER SOLUTIONS",
+                  size: 13,
                   weight: FontWeight.w400,
                 )
               ],
