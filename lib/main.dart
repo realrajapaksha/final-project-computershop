@@ -10,12 +10,21 @@ import 'routes/app_route.dart' as route;
 import 'utils/shared_values.dart';
 
 void main() async {
+  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+      statusBarIconBrightness: Brightness.light,
+      statusBarColor: AppColors.white));
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
+
   WidgetsFlutterBinding.ensureInitialized();
   await SharedValues.shared.getInstance();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  //FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+
+  FirebaseAnalytics analytics = FirebaseAnalytics.instance;
 
   runApp(const MyApp());
 }
@@ -30,13 +39,6 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-        statusBarIconBrightness: Brightness.light,
-        statusBarColor: AppColors.highDeepBlue));
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp,
-      DeviceOrientation.portraitDown,
-    ]);
     return GetMaterialApp(
       theme: ThemeData(primarySwatch: Colors.lightBlue),
       debugShowCheckedModeBanner: false,
