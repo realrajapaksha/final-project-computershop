@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "505172388074",
+    "project_id": "nanotek-esoft",
+    "storage_bucket": "nanotek-esoft.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:505172388074:android:a96835990fa10985ee8f93",
+        "android_client_info": {
+          "package_name": "com.esoft.computershop"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCFAqzWQAHDyahQ-Sy4-WsPXnIqR2Se5-U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

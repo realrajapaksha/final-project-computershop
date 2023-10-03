@@ -1,7 +1,25 @@
+import 'package:computershop/screens/admin/add_item/view/add_item.dart';
+import 'package:computershop/screens/admin/admin_dashboard/view/admin_dashboard.dart';
+import 'package:computershop/screens/admin/complains/view/complains.dart';
+import 'package:computershop/screens/admin/view_complain/view/view_complain.dart';
+import 'package:computershop/screens/common/accessories/view/accessories.dart';
+import 'package:computershop/screens/common/computers/view/conputers.dart';
+import 'package:computershop/screens/common/phones/view/phones.dart';
+import 'package:computershop/screens/common/product_details/view/product_details.dart';
+import 'package:computershop/screens/users/buy_item_progress/view/buy_item_progress.dart';
+import 'package:computershop/screens/users/buy_items/view/buy_items.dart';
+import 'package:computershop/screens/users/cart/view/cart.dart';
+import 'package:computershop/screens/users/confirmation/view/confirmation.dart';
+import 'package:computershop/screens/users/contact_support/view/contact_support.dart';
+import 'package:computershop/screens/users/payment/view/payment.dart';
 import 'package:flutter/material.dart';
 
 import '../screens/common/login/view/login.dart';
 import '../screens/common/splash/view/splash_screen.dart';
+import '../screens/users/payment_success/view/payment_success.dart';
+import '../screens/users/product_list_details/view/product_list_details.dart';
+import '../screens/users/report/view/report.dart';
+import '../screens/users/users_dashboard/view/user_dashboard.dart';
 
 class AppRoute {
   // common
@@ -38,12 +56,165 @@ class AppRoute {
 }
 
 Route<dynamic> controller(RouteSettings routeSettings) {
-  print("route");
   switch (routeSettings.name) {
+    /// common
     case AppRoute.splash:
       return MaterialPageRoute(builder: (_) => const SplashScreen());
+
     case AppRoute.login:
       return MaterialPageRoute(builder: (_) => const Login());
+
+    case AppRoute.phones:
+      return PageRouteBuilder(
+        pageBuilder: (_, __, ___) => const Phones(),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          return PageAnimation.transition(
+              context, animation, secondaryAnimation, child);
+        },
+      );
+
+    case AppRoute.accessories:
+      return PageRouteBuilder(
+        pageBuilder: (_, __, ___) => const Accessories(),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          return PageAnimation.transition(
+              context, animation, secondaryAnimation, child);
+        },
+      );
+
+    case AppRoute.computers:
+      return PageRouteBuilder(
+        pageBuilder: (_, __, ___) => const Computers(),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          return PageAnimation.transition(
+              context, animation, secondaryAnimation, child);
+        },
+      );
+
+    case AppRoute.productDetails:
+      return PageRouteBuilder(
+        pageBuilder: (_, __, ___) => const ProductDetails(),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          return PageAnimation.transition(
+              context, animation, secondaryAnimation, child);
+        },
+      );
+
+    /// user
+    case AppRoute.userDashboard:
+      return MaterialPageRoute(builder: (_) => const UserDashboard());
+
+    case AppRoute.buyItems:
+      return PageRouteBuilder(
+        pageBuilder: (_, __, ___) => const BuyItems(),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          return PageAnimation.transition(
+              context, animation, secondaryAnimation, child);
+        },
+      );
+
+    case AppRoute.buyItemProgress:
+      return PageRouteBuilder(
+        pageBuilder: (_, __, ___) => const BuyItemProgress(),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          return PageAnimation.transition(
+              context, animation, secondaryAnimation, child);
+        },
+      );
+
+    case AppRoute.cart:
+      return PageRouteBuilder(
+        pageBuilder: (_, __, ___) => const Cart(),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          return PageAnimation.transition(
+              context, animation, secondaryAnimation, child);
+        },
+      );
+
+    case AppRoute.confirmation:
+      return PageRouteBuilder(
+        pageBuilder: (_, __, ___) => const Confirmation(),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          return PageAnimation.transition(
+              context, animation, secondaryAnimation, child);
+        },
+      );
+
+    case AppRoute.contactSupport:
+      return PageRouteBuilder(
+        pageBuilder: (_, __, ___) => const ContactSupport(),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          return PageAnimation.transition(
+              context, animation, secondaryAnimation, child);
+        },
+      );
+
+    case AppRoute.payment:
+      return PageRouteBuilder(
+        pageBuilder: (_, __, ___) => const Payment(),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          return PageAnimation.transition(
+              context, animation, secondaryAnimation, child);
+        },
+      );
+
+    case AppRoute.paymentSuccess:
+      return PageRouteBuilder(
+        pageBuilder: (_, __, ___) => const PaymentSuccess(),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          return PageAnimation.transition(
+              context, animation, secondaryAnimation, child);
+        },
+      );
+
+    case AppRoute.productListDetails:
+      return PageRouteBuilder(
+        pageBuilder: (_, __, ___) => const ProductListDetails(),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          return PageAnimation.transition(
+              context, animation, secondaryAnimation, child);
+        },
+      );
+
+    case AppRoute.report:
+      return PageRouteBuilder(
+        pageBuilder: (_, __, ___) => const Report(),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          return PageAnimation.transition(
+              context, animation, secondaryAnimation, child);
+        },
+      );
+
+    /// admin
+    case AppRoute.adminDashboard:
+      return MaterialPageRoute(builder: (_) => const AdminDashboard());
+
+    case AppRoute.addItem:
+      return PageRouteBuilder(
+        pageBuilder: (_, __, ___) => const AddItem(),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          return PageAnimation.transition(
+              context, animation, secondaryAnimation, child);
+        },
+      );
+
+    case AppRoute.complains:
+      return PageRouteBuilder(
+        pageBuilder: (_, __, ___) => const Complains(),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          return PageAnimation.transition(
+              context, animation, secondaryAnimation, child);
+        },
+      );
+
+    case AppRoute.viewComplain:
+      return PageRouteBuilder(
+        pageBuilder: (_, __, ___) => const ViewComplain(),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          return PageAnimation.transition(
+              context, animation, secondaryAnimation, child);
+        },
+      );
 
     // case AppRoute.dashboard:
     //   return MaterialPageRoute(builder: (_) => const Dashboard());

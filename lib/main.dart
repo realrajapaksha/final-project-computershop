@@ -1,15 +1,20 @@
 import 'package:computershop/utils/app_colors.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 
+import 'firebase_options.dart';
 import 'routes/app_route.dart' as route;
 import 'utils/shared_values.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await SharedValues.shared.getInstance();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   //FirebaseAnalytics analytics = FirebaseAnalytics.instance;
 
   runApp(const MyApp());
