@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 
 import '../../../../../utils/app_colors.dart';
 import '../../../../../utils/widgets/app_text.dart';
-import '../../controller/user_dashboard_controller.dart';
+import '../../../users_dashboard/controller/user_dashboard_controller.dart';
 
 class UserDashboardHeader extends StatelessWidget {
   const UserDashboardHeader({Key? key}) : super(key: key);

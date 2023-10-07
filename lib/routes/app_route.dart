@@ -19,6 +19,7 @@ import '../screens/common/splash/view/splash_screen.dart';
 import '../screens/users/payment_success/view/payment_success.dart';
 import '../screens/users/product_list_details/view/product_list_details.dart';
 import '../screens/users/report/view/report.dart';
+import '../screens/users/user_home/view/user_home.dart';
 import '../screens/users/users_dashboard/view/user_dashboard.dart';
 
 class AppRoute {
@@ -32,6 +33,7 @@ class AppRoute {
   static const String productDetails = 'product_details';
 
   // user
+  static const String userHome = 'user_home';
   static const String userDashboard = 'user_dashboard';
   static const String userProfile = 'user_profile';
   static const String report = 'report';
@@ -101,6 +103,8 @@ Route<dynamic> controller(RouteSettings routeSettings) {
       );
 
     /// user
+    case AppRoute.userHome:
+      return MaterialPageRoute(builder: (_) => const UserHome());
     case AppRoute.userDashboard:
       return MaterialPageRoute(builder: (_) => const UserDashboard());
 

@@ -74,7 +74,7 @@ class _LoginState extends State<Login> {
                         borderRadius: BorderRadius.circular(5)),
                     child: InkWell(
                       onTap: () {
-                        Navigator.pushNamed(context, AppRoute.userDashboard);
+                        Navigator.pushNamed(context, AppRoute.userHome);
                       },
                       child: Container(
                         padding: const EdgeInsets.symmetric(

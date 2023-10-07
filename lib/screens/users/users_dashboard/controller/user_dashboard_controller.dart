@@ -5,8 +5,6 @@ import 'package:get/get.dart';
 class UserDashboardController extends GetxController {
   final name = SharedValues.shared.username.obs;
 
-  final currentIndex = 0.obs;
-
   final computers = <DashboardItemModel>[].obs;
   final phones = <DashboardItemModel>[].obs;
   final accessories = <DashboardItemModel>[].obs;
