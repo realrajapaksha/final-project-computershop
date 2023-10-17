@@ -3,6 +3,7 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 
 import 'firebase_options.dart';
@@ -23,6 +24,8 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
+  Stripe.publishableKey = "pk_test_51NSOXNEJSo66fUePKHTlFzKCDOv6dsiPq6YoUHdm8oLXggG754fdBGmsWsjebT8qVcNZLW6grc7TvKro83dJRaLu004jkefGt6";
 
   FirebaseAnalytics analytics = FirebaseAnalytics.instance;
 
