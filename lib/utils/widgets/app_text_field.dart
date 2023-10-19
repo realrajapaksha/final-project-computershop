@@ -5,7 +5,7 @@ import '../app_colors.dart';
 
 class AppTextField extends StatefulWidget {
   final String labelText;
-  final TextEditingController controller;
+  final TextEditingController? controller;
   final bool isEmpty;
   final TextInputType type;
   final TextInputAction action;
@@ -17,23 +17,25 @@ class AppTextField extends StatefulWidget {
   final bool enable;
   final TextAlign align;
   final ValueSetter<bool> onValueChanged;
+  final ValueChanged<String>? onChangedText;
 
-  const AppTextField({
-    Key? key,
-    required this.labelText,
-    required this.controller,
-    this.isEmpty = false,
-    this.type = TextInputType.text,
-    this.action = TextInputAction.done,
-    this.obscureText = false,
-    this.isLargeText = false,
-    this.minLines = 1,
-    this.maxLines,
-    this.isRequired = true,
-    this.enable = true,
-    this.align = TextAlign.start,
-    required this.onValueChanged,
-  }) : super(key: key);
+  const AppTextField(
+      {Key? key,
+      required this.labelText,
+      this.controller,
+      this.isEmpty = false,
+      this.type = TextInputType.text,
+      this.action = TextInputAction.done,
+      this.obscureText = false,
+      this.isLargeText = false,
+      this.minLines = 1,
+      this.maxLines,
+      this.isRequired = true,
+      this.enable = true,
+      this.align = TextAlign.start,
+      required this.onValueChanged,
+      this.onChangedText})
+      : super(key: key);
 
   @override
   State<AppTextField> createState() => _AppMainTextFieldState();
@@ -83,6 +85,13 @@ class _AppMainTextFieldState extends State<AppTextField> {
           final isEmpty = value.trim().isEmpty ? true : false;
           widget.onValueChanged(isEmpty);
         }
+
+        final ValueChanged<String>? onSubmitted = widget.onChangedText;
+        if (onSubmitted == null) {
+          return;
+        }
+
+        onSubmitted(value);
       },
       onSubmitted: (String value) {
         if (widget.isRequired) {

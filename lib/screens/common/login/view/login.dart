@@ -1,8 +1,11 @@
-import 'package:computershop/routes/app_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_signin_button/button_list.dart';
+import 'package:flutter_signin_button/button_view.dart';
+import 'package:get/get.dart';
 
 import '../../../../utils/app_colors.dart';
 import '../../../../utils/widgets/app_text.dart';
+import '../controller/login_controller.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -12,6 +15,14 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  final controller = Get.put(LoginController());
+
+  @override
+  void dispose() {
+    Get.delete<LoginController>();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -35,8 +46,8 @@ class _LoginState extends State<Login> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
-                  width: 200,
-                  height: 200,
+                  width: 150,
+                  height: 150,
                   decoration: const BoxDecoration(
                     color: Colors.transparent,
                     shape: BoxShape.circle,
@@ -47,7 +58,7 @@ class _LoginState extends State<Login> {
                   ),
                 ),
                 const SizedBox(
-                  height: 20,
+                  height: 30,
                 ),
                 const AppText(
                   text: "WELCOME BACK",
@@ -66,43 +77,14 @@ class _LoginState extends State<Login> {
                 const SizedBox(
                   height: 40,
                 ),
-                Material(
-                  color: Colors.transparent,
-                  child: Ink(
-                    decoration: BoxDecoration(
-                        color: AppColors.white,
-                        borderRadius: BorderRadius.circular(5)),
-                    child: InkWell(
-                      onTap: () {
-                        Navigator.pushNamed(context, AppRoute.userHome);
-                      },
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 10, horizontal: 8),
-                        margin: const EdgeInsets.symmetric(horizontal: 20),
-                        child: Wrap(
-                          crossAxisAlignment: WrapCrossAlignment.center,
-                          children: [
-                            Image.asset(
-                              "assets/images/google.png",
-                              width: 25,
-                              height: 25,
-                            ),
-                            const SizedBox(
-                              width: 10,
-                            ),
-                            const AppText(
-                              text: "Continue with Google",
-                              fontColor: AppColors.deepBlue,
-                              weight: FontWeight.w600,
-                              align: TextAlign.center,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                )
+                SignInButton(
+                  Buttons.Google,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10)),
+                  onPressed: () {
+                    controller.login(context);
+                  },
+                ),
               ],
             ),
           ),

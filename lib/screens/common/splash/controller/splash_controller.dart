@@ -16,7 +16,7 @@ class SplashController extends GetxController {
           if (SharedValues.shared.isSignedIn) {
             Navigator.popAndPushNamed(context, AppRoute.userHome);
           } else {
-            Navigator.pushNamed(context, AppRoute.login);
+            Navigator.popAndPushNamed(context, AppRoute.login);
           }
         }
       } catch (e) {

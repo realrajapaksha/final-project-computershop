@@ -1,21 +1,23 @@
-import 'package:computershop/screens/admin/add_item/view/add_item.dart';
-import 'package:computershop/screens/admin/admin_dashboard/view/admin_dashboard.dart';
-import 'package:computershop/screens/admin/complains/view/complains.dart';
-import 'package:computershop/screens/admin/view_complain/view/view_complain.dart';
-import 'package:computershop/screens/common/accessories/view/accessories.dart';
-import 'package:computershop/screens/common/computers/view/conputers.dart';
-import 'package:computershop/screens/common/phones/view/phones.dart';
-import 'package:computershop/screens/common/product_details/view/product_details.dart';
-import 'package:computershop/screens/users/buy_item_progress/view/buy_item_progress.dart';
-import 'package:computershop/screens/users/buy_items/view/buy_items.dart';
-import 'package:computershop/screens/users/cart/view/cart.dart';
-import 'package:computershop/screens/users/confirmation/view/confirmation.dart';
-import 'package:computershop/screens/users/contact_support/view/contact_support.dart';
-import 'package:computershop/screens/users/payment/view/payment.dart';
 import 'package:flutter/material.dart';
 
+import '../models/navigate_models/register_nav_model.dart';
+import '../screens/admin/add_item/view/add_item.dart';
+import '../screens/admin/admin_dashboard/view/admin_dashboard.dart';
+import '../screens/admin/complains/view/complains.dart';
+import '../screens/admin/view_complain/view/view_complain.dart';
+import '../screens/common/accessories/view/accessories.dart';
+import '../screens/common/computers/view/conputers.dart';
 import '../screens/common/login/view/login.dart';
+import '../screens/common/phones/view/phones.dart';
+import '../screens/common/product_details/view/product_details.dart';
+import '../screens/common/register/view/register.dart';
 import '../screens/common/splash/view/splash_screen.dart';
+import '../screens/users/buy_item_progress/view/buy_item_progress.dart';
+import '../screens/users/buy_items/view/buy_items.dart';
+import '../screens/users/cart/view/cart.dart';
+import '../screens/users/confirmation/view/confirmation.dart';
+import '../screens/users/contact_support/view/contact_support.dart';
+import '../screens/users/payment/view/payment.dart';
 import '../screens/users/payment_success/view/payment_success.dart';
 import '../screens/users/product_list_details/view/product_list_details.dart';
 import '../screens/users/report/view/report.dart';
@@ -26,6 +28,7 @@ class AppRoute {
   // common
   static const String splash = 'splash';
   static const String login = 'login';
+  static const String register = 'register';
 
   static const String phones = 'phones';
   static const String accessories = 'accessories';
@@ -65,6 +68,16 @@ Route<dynamic> controller(RouteSettings routeSettings) {
 
     case AppRoute.login:
       return MaterialPageRoute(builder: (_) => const Login());
+
+    case AppRoute.register:
+      final account = routeSettings.arguments as RegisterNavModel;
+      return PageRouteBuilder(
+        pageBuilder: (_, __, ___) => Register(account: account),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          return PageAnimation.transition(
+              context, animation, secondaryAnimation, child);
+        },
+      );
 
     case AppRoute.phones:
       return PageRouteBuilder(

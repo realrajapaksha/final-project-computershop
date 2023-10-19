@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 import '../../../../utils/app_colors.dart';
@@ -52,13 +51,13 @@ class _SplashScreenState extends State<SplashScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
-                  width: 200,
-                  height: 200,
+                  width: 150,
+                  height: 150,
                   decoration: const BoxDecoration(
                     color: Colors.transparent,
                     shape: BoxShape.circle,
                     image: DecorationImage(
-                      filterQuality: FilterQuality.high,
+                        filterQuality: FilterQuality.high,
                         image: AssetImage('assets/images/logo.png'),
                         fit: BoxFit.fill),
                   ),
