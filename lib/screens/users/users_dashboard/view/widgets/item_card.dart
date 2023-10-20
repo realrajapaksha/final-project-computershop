@@ -1,8 +1,8 @@
-import 'package:computershop/utils/app_colors.dart';
-import 'package:computershop/utils/widgets/app_text.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../models/data_models/dashboard_item_model.dart';
+import '../../../../../utils/app_colors.dart';
+import '../../../../../utils/widgets/app_text.dart';
 
 class ItemCard extends StatelessWidget {
   final DashboardItemModel model;
@@ -32,11 +32,8 @@ class ItemCard extends StatelessWidget {
                     width: MediaQuery.of(context).size.width * 0.24,
                     padding: const EdgeInsets.all(5),
                     decoration: BoxDecoration(
-                        image: const DecorationImage(
-                          image: AssetImage('assets/images/google.png'),
-                          fit: BoxFit.cover,
-                        ),
-                        borderRadius: BorderRadius.circular(10)),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
                     child: Image.asset(
                       "assets/images/google.png",
                       fit: BoxFit.cover,
