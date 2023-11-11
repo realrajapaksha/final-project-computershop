@@ -48,7 +48,7 @@ class _AppMainTextFieldState extends State<AppTextField> {
       if (widget.isEmpty) {
         return AppColors.red;
       } else {
-        return AppColors.white;
+        return AppColors.deepBlue;
       }
     }
 

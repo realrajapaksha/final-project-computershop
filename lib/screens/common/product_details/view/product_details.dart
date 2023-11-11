@@ -3,6 +3,7 @@ import 'package:computershop/routes/app_route.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../../models/data_models/pay_product_model.dart';
 import '../../../../utils/app_colors.dart';
 import '../../../../utils/widgets/app_button.dart';
 import '../../../../utils/widgets/app_text.dart';
@@ -201,7 +202,9 @@ class _ProductDetailsState extends State<ProductDetails> {
                     title: "Buy Now",
                     onTapped: () {
                       if (controller.product.value.quantity > 0) {
-                        Navigator.pushNamed(context, AppRoute.paymentDetails);
+                        final model = PayProductModel(productId: widget.productId, pname: controller.product.value.pname, qty: 1, price: controller.product.value.price, image: controller.product.value.image);
+                        Navigator.pushNamed(context, AppRoute.paymentDetails,
+                            arguments: [model]);
                       }
                     })
               ],

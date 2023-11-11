@@ -33,7 +33,7 @@ class ComputerController extends GetxController {
           id: "1332",
           name: "MacBook Pro 13″ M2",
           category: "computer",
-          price: 485000,
+          price: 535000,
           description: "Apple Macbook pro ",
           qty: 0,
           image:
@@ -42,7 +42,7 @@ class ComputerController extends GetxController {
           id: "5383",
           name: "MacBook Air M2",
           category: "computer",
-          price: 485000,
+          price: 325000,
           description: "Apple Macbook pro ",
           qty: 20,
           image:
@@ -52,7 +52,7 @@ class ComputerController extends GetxController {
           id: "53453483",
           name: "MacBook Air M1",
           category: "computer",
-          price: 485000,
+          price: 295000,
           description: "Apple Macbook pro ",
           qty: 0,
           image:

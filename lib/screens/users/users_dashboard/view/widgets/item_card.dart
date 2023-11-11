@@ -21,7 +21,9 @@ class ItemCard extends StatelessWidget {
               border: Border.all(color: AppColors.deepBlue),
               borderRadius: BorderRadius.circular(12)),
           child: InkWell(
-            onTap: () {},
+            onTap: () {
+
+            },
             child: Container(
               width: MediaQuery.of(context).size.width * 0.3,
               margin: const EdgeInsets.all(5),
@@ -53,7 +55,7 @@ class ItemCard extends StatelessWidget {
                     fontColor: AppColors.deepBlue,
                     weight: FontWeight.w500,
                   ),
-                  const Spacer(),
+
                   AppText(
                     text: model.qty > 0 ? "In Stock" : "Out of Stock",
                     fontColor:

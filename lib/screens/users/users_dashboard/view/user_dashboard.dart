@@ -16,13 +16,12 @@ class UserDashboard extends StatefulWidget {
 }
 
 class _UserDashboardState extends State<UserDashboard> {
-  final dashboardController =
-      Get.put(UserDashboardController());
+  final controller = Get.put(UserDashboardController());
 
   @override
   void initState() {
     super.initState();
-    dashboardController.initialize();
+    controller.initialize();
   }
 
   @override
@@ -53,14 +52,15 @@ class _UserDashboardState extends State<UserDashboard> {
                       children: [
                         Image.asset(
                           "assets/images/logo_white.png",
-                          width: 150,
-                          height: 50,
+                          width: 160,
+                          height: 60,
                         ),
                         IconButton(
                             splashRadius: 20,
                             onPressed: () {},
                             icon: const Icon(
-                              Icons.notifications,
+                              Icons.person_pin,
+                              size: 30,
                               color: AppColors.white,
                             ))
                       ],
@@ -110,13 +110,17 @@ class _UserDashboardState extends State<UserDashboard> {
                             Material(
                               color: Colors.transparent,
                               child: InkWell(
-                                onTap: () {
-                                  Navigator.pushNamed(
+                                onTap: () async {
+                                  await Navigator.pushNamed(
                                       context, AppRoute.computers);
+                                  controller.initialize();
                                 },
-                                child: const AppText(
-                                  text: "See More  ",
-                                  fontColor: AppColors.deepBlue,
+                                child: const Padding(
+                                  padding: EdgeInsets.all(5),
+                                  child: AppText(
+                                    text: "See More  ",
+                                    fontColor: AppColors.deepBlue,
+                                  ),
                                 ),
                               ),
                             ),
@@ -127,11 +131,10 @@ class _UserDashboardState extends State<UserDashboard> {
                           child: ListView.builder(
                               shrinkWrap: true,
                               scrollDirection: Axis.horizontal,
-                              itemCount: dashboardController.computers.length,
+                              itemCount: controller.computers.length,
                               itemBuilder: (context, index) {
                                 return ItemCard(
-                                    model:
-                                        dashboardController.computers[index]);
+                                    model: controller.computers[index]);
                               }),
                         ),
                         const Divider(),
@@ -147,12 +150,17 @@ class _UserDashboardState extends State<UserDashboard> {
                             Material(
                               color: Colors.transparent,
                               child: InkWell(
-                                onTap: () {
-                                  Navigator.pushNamed(context, AppRoute.phones);
+                                onTap: () async {
+                                  await Navigator.pushNamed(
+                                      context, AppRoute.phones);
+                                  controller.initialize();
                                 },
-                                child: const AppText(
-                                  text: "See More  ",
-                                  fontColor: AppColors.deepBlue,
+                                child: const Padding(
+                                  padding: EdgeInsets.all(5),
+                                  child: AppText(
+                                    text: "See More  ",
+                                    fontColor: AppColors.deepBlue,
+                                  ),
                                 ),
                               ),
                             ),
@@ -163,10 +171,10 @@ class _UserDashboardState extends State<UserDashboard> {
                           child: ListView.builder(
                               shrinkWrap: true,
                               scrollDirection: Axis.horizontal,
-                              itemCount: dashboardController.phones.length,
+                              itemCount: controller.phones.length,
                               itemBuilder: (context, index) {
                                 return ItemCard(
-                                    model: dashboardController.phones[index]);
+                                    model: controller.phones[index]);
                               }),
                         ),
                         const Divider(),
@@ -182,13 +190,17 @@ class _UserDashboardState extends State<UserDashboard> {
                             Material(
                               color: Colors.transparent,
                               child: InkWell(
-                                onTap: () {
-                                  Navigator.pushNamed(
+                                onTap: () async {
+                                  await Navigator.pushNamed(
                                       context, AppRoute.accessories);
+                                  controller.initialize();
                                 },
-                                child: const AppText(
-                                  text: "See More  ",
-                                  fontColor: AppColors.deepBlue,
+                                child: const Padding(
+                                  padding: EdgeInsets.all(5),
+                                  child: AppText(
+                                    text: "See More  ",
+                                    fontColor: AppColors.deepBlue,
+                                  ),
                                 ),
                               ),
                             ),
@@ -199,11 +211,10 @@ class _UserDashboardState extends State<UserDashboard> {
                           child: ListView.builder(
                               shrinkWrap: true,
                               scrollDirection: Axis.horizontal,
-                              itemCount: dashboardController.accessories.length,
+                              itemCount: controller.accessories.length,
                               itemBuilder: (context, index) {
                                 return ItemCard(
-                                    model:
-                                        dashboardController.accessories[index]);
+                                    model: controller.accessories[index]);
                               }),
                         ),
                       ],

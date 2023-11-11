@@ -4,23 +4,45 @@ import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
 
+import '../../../../models/data_models/pay_product_model.dart';
+
 class PaymentDetailsController extends GetxController {
   Map<String, dynamic>? paymentIntent;
 
+  final productList = <PayProductModel>[].obs;
+
+  final total = 0.0.obs;
+
+  initialize(List<PayProductModel> navList) async {
+    try {
+      productList.clear();
+      for (var item in navList) {
+        total.value = total.value + (item.price * item.qty);
+        productList.add(item);
+      }
+    } catch (exception) {
+      //
+    }
+  }
 
   Future<void> makePayment(context) async {
     try {
-      paymentIntent = await createPaymentIntent('100', 'USD');
+      int tot = total.value.toInt() * 100;
 
+      paymentIntent = await createPaymentIntent(tot, 'LKR');
 
       //STEP 2: Initialize Payment Sheet
       await Stripe.instance
           .initPaymentSheet(
-              paymentSheetParameters: SetupPaymentSheetParameters(
-                  paymentIntentClientSecret: paymentIntent![
-                      'client_secret'], //Gotten from payment intent
-                  style: ThemeMode.dark,
-                  merchantDisplayName: 'Ikay'))
+            paymentSheetParameters: SetupPaymentSheetParameters(
+                intentConfiguration: IntentConfiguration(
+                  mode: IntentMode(
+                      currencyCode: "LKR", amount: tot),
+                ),
+                paymentIntentClientSecret: paymentIntent!['client_secret'],
+                style: ThemeMode.dark,
+                merchantDisplayName: 'LK'),
+          )
           .then((value) {});
 
       //STEP 3: Display Payment sheet
@@ -35,7 +57,7 @@ class PaymentDetailsController extends GetxController {
       await Stripe.instance.presentPaymentSheet().then((value) {
         showDialog(
             context: context,
-            builder: (_) => AlertDialog(
+            builder: (_) => const AlertDialog(
                   content: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
@@ -77,11 +99,11 @@ class PaymentDetailsController extends GetxController {
     }
   }
 
-  createPaymentIntent(String amount, String currency) async {
+  createPaymentIntent(int amount, String currency) async {
     try {
       //Request body
       Map<String, dynamic> body = {
-        'amount': calculateAmount(amount),
+        'amount': amount.toString(),
         'currency': currency,
       };
 
@@ -99,10 +121,5 @@ class PaymentDetailsController extends GetxController {
     } catch (err) {
       throw Exception(err.toString());
     }
-  }
-
-  calculateAmount(String amount) {
-    final calculatedAmout = (int.parse(amount)) * 100;
-    return calculatedAmout.toString();
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../models/data_models/pay_product_model.dart';
 import '../models/navigate_models/register_nav_model.dart';
 import '../screens/admin/add_item/view/add_item.dart';
 import '../screens/admin/admin_dashboard/view/admin_dashboard.dart';
@@ -168,8 +169,9 @@ Route<dynamic> controller(RouteSettings routeSettings) {
       );
 
     case AppRoute.paymentDetails:
+      final productList = routeSettings.arguments as List<PayProductModel>;
       return PageRouteBuilder(
-        pageBuilder: (_, __, ___) => const PaymentDetails(),
+        pageBuilder: (_, __, ___) => PaymentDetails(productList: productList),
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
           return PageAnimation.transition(
               context, animation, secondaryAnimation, child);
