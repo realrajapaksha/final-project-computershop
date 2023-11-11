@@ -33,7 +33,8 @@ class LoginController extends GetxController {
 
   checkAccount(context, GoogleSignInAccount account) async {
     try {
-      final res = await RemoteService.checkUser(email: account.email);
+      SharedValues.shared.setUsername("Induwra Rajapaksha");
+      final res = true;// await RemoteService.checkUser(email: account.email);
 
       if (res != null) {
         if (res) {

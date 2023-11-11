@@ -16,7 +16,7 @@ class UserDashboard extends StatefulWidget {
 }
 
 class _UserDashboardState extends State<UserDashboard> {
-  final UserDashboardController dashboardController =
+  final dashboardController =
       Get.put(UserDashboardController());
 
   @override
@@ -112,7 +112,7 @@ class _UserDashboardState extends State<UserDashboard> {
                               child: InkWell(
                                 onTap: () {
                                   Navigator.pushNamed(
-                                      context, AppRoute.payment);
+                                      context, AppRoute.computers);
                                 },
                                 child: const AppText(
                                   text: "See More  ",
@@ -147,7 +147,9 @@ class _UserDashboardState extends State<UserDashboard> {
                             Material(
                               color: Colors.transparent,
                               child: InkWell(
-                                onTap: () {},
+                                onTap: () {
+                                  Navigator.pushNamed(context, AppRoute.phones);
+                                },
                                 child: const AppText(
                                   text: "See More  ",
                                   fontColor: AppColors.deepBlue,
@@ -180,7 +182,10 @@ class _UserDashboardState extends State<UserDashboard> {
                             Material(
                               color: Colors.transparent,
                               child: InkWell(
-                                onTap: () {},
+                                onTap: () {
+                                  Navigator.pushNamed(
+                                      context, AppRoute.accessories);
+                                },
                                 child: const AppText(
                                   text: "See More  ",
                                   fontColor: AppColors.deepBlue,

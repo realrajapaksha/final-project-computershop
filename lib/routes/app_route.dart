@@ -12,12 +12,12 @@ import '../screens/common/phones/view/phones.dart';
 import '../screens/common/product_details/view/product_details.dart';
 import '../screens/common/register/view/register.dart';
 import '../screens/common/splash/view/splash_screen.dart';
-import '../screens/users/buy_item_progress/view/buy_item_progress.dart';
-import '../screens/users/buy_items/view/buy_items.dart';
 import '../screens/users/cart/view/cart.dart';
 import '../screens/users/confirmation/view/confirmation.dart';
 import '../screens/users/contact_support/view/contact_support.dart';
-import '../screens/users/payment/view/payment.dart';
+import '../screens/users/order_item_details/view/order_item_details.dart';
+import '../screens/users/order_items/view/order_items.dart';
+import '../screens/users/payment_details/view/payment_details.dart';
 import '../screens/users/payment_success/view/payment_success.dart';
 import '../screens/users/product_list_details/view/product_list_details.dart';
 import '../screens/users/report/view/report.dart';
@@ -41,13 +41,13 @@ class AppRoute {
   static const String userProfile = 'user_profile';
   static const String report = 'report';
   static const String productListDetails = 'product_list_details';
-  static const String payment = 'payment';
+  static const String paymentDetails = 'paymentDetails';
   static const String paymentSuccess = 'payment_success';
   static const String contactSupport = 'contact_support';
   static const String confirmation = 'confirmation';
   static const String cart = 'cart';
-  static const String buyItems = 'buy_items';
-  static const String buyItemProgress = 'buy_item_progress';
+  static const String orderItems = 'order_items';
+  static const String orderItemDetails = 'order_item_details';
   static const String watchList = 'watch_list';
 
   // admin
@@ -107,8 +107,9 @@ Route<dynamic> controller(RouteSettings routeSettings) {
       );
 
     case AppRoute.productDetails:
+      final id = routeSettings.arguments as String;
       return PageRouteBuilder(
-        pageBuilder: (_, __, ___) => const ProductDetails(),
+        pageBuilder: (_, __, ___) => ProductDetails(productId: id),
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
           return PageAnimation.transition(
               context, animation, secondaryAnimation, child);
@@ -121,18 +122,18 @@ Route<dynamic> controller(RouteSettings routeSettings) {
     case AppRoute.userDashboard:
       return MaterialPageRoute(builder: (_) => const UserDashboard());
 
-    case AppRoute.buyItems:
+    case AppRoute.orderItems:
       return PageRouteBuilder(
-        pageBuilder: (_, __, ___) => const BuyItems(),
+        pageBuilder: (_, __, ___) => const OrderItems(),
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
           return PageAnimation.transition(
               context, animation, secondaryAnimation, child);
         },
       );
 
-    case AppRoute.buyItemProgress:
+    case AppRoute.orderItemDetails:
       return PageRouteBuilder(
-        pageBuilder: (_, __, ___) => const BuyItemProgress(),
+        pageBuilder: (_, __, ___) => const OrderItemDetails(),
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
           return PageAnimation.transition(
               context, animation, secondaryAnimation, child);
@@ -166,9 +167,9 @@ Route<dynamic> controller(RouteSettings routeSettings) {
         },
       );
 
-    case AppRoute.payment:
+    case AppRoute.paymentDetails:
       return PageRouteBuilder(
-        pageBuilder: (_, __, ___) => const Payment(),
+        pageBuilder: (_, __, ___) => const PaymentDetails(),
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
           return PageAnimation.transition(
               context, animation, secondaryAnimation, child);

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
 
-class PaymentController extends GetxController {
+class PaymentDetailsController extends GetxController {
   Map<String, dynamic>? paymentIntent;
 
 

@@ -1,12 +1,12 @@
-import 'package:computershop/screens/users/buy_items/view/buy_items.dart';
-import 'package:computershop/screens/users/cart/view/cart.dart';
-import 'package:computershop/screens/users/user_home/view/widgets/bottom_nav.dart';
-import 'package:computershop/screens/users/users_dashboard/view/user_dashboard.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../utils/app_colors.dart';
+import '../../cart/view/cart.dart';
+import '../../order_items/view/order_items.dart';
+import '../../users_dashboard/view/user_dashboard.dart';
 import '../controller/user_home_controller.dart';
+import 'widgets/bottom_nav.dart';
 
 class UserHome extends StatefulWidget {
   const UserHome({super.key});
@@ -18,12 +18,11 @@ class UserHome extends StatefulWidget {
 class _UserHomeState extends State<UserHome> {
   final UserHomeController homeController = Get.put(UserHomeController());
 
-  static const menuItem = [UserDashboard(), Cart(), BuyItems()];
+  static const menuItem = [UserDashboard(), Cart(), OrderItems()];
 
   @override
   void initState() {
     super.initState();
-    //dashboardController.initialize();
   }
 
   @override
