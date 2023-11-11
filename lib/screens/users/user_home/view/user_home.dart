@@ -18,7 +18,7 @@ class UserHome extends StatefulWidget {
 class _UserHomeState extends State<UserHome> {
   final UserHomeController homeController = Get.put(UserHomeController());
 
-  static const menuItem = [UserDashboard(), Cart(), OrderItems()];
+  static const menuItem = [UserDashboard(), OrderItems(),Cart()];
 
   @override
   void initState() {
