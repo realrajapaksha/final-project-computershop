@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../models/data_models/dashboard_item_model.dart';
@@ -34,9 +35,9 @@ class ItemCard extends StatelessWidget {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
                     ),
-                    child: Image.asset(
-                      "assets/images/google.png",
+                    child: CachedNetworkImage(
                       fit: BoxFit.cover,
+                      imageUrl: model.image,
                     ),
                   ),
                   const Spacer(),
@@ -48,7 +49,7 @@ class ItemCard extends StatelessWidget {
                   ),
                   const Spacer(),
                   AppText(
-                    text: "Rs.${model.price} /=",
+                    text: "Rs.${model.price}",
                     fontColor: AppColors.deepBlue,
                     weight: FontWeight.w500,
                   ),

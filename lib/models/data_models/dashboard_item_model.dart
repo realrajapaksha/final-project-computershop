@@ -5,6 +5,7 @@ class DashboardItemModel {
   final double price;
   final String description;
   final int qty;
+  final String image;
 
   const DashboardItemModel(
       {required this.id,
@@ -12,5 +13,6 @@ class DashboardItemModel {
       required this.category,
       required this.price,
       required this.description,
-      required this.qty});
+      required this.qty,
+      required this.image});
 }

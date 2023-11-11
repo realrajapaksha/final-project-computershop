@@ -1,3 +1,4 @@
+import 'package:computershop/utils/shared_values.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -43,30 +44,34 @@ class _UserDashboardState extends State<UserDashboard> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
+                    const SizedBox(
+                      height: 5,
+                    ),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Image.asset(
                           "assets/images/logo_white.png",
-                          width: 100,
+                          width: 150,
+                          height: 50,
                         ),
-                        Image.asset(
-                          "assets/images/logo_white.png",
-                          width: 100,
-                        ),
+                        IconButton(
+                            splashRadius: 20,
+                            onPressed: () {},
+                            icon: const Icon(
+                              Icons.notifications,
+                              color: AppColors.white,
+                            ))
                       ],
-                    ),
-                    const SizedBox(
-                      height: 10,
                     ),
                     const AppText(
                       text: "Hello",
                       size: 25,
                       weight: FontWeight.bold,
                     ),
-                    const AppText(
-                      text: "Induwra Rajapaksha",
+                    AppText(
+                      text: SharedValues.shared.username,
                       size: 20,
                       weight: FontWeight.bold,
                     ),
