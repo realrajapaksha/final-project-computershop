@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../models/api_models/order_model.dart';
 import '../models/data_models/pay_product_model.dart';
 import '../models/navigate_models/register_nav_model.dart';
 import '../screens/admin/add_item/view/add_item.dart';
@@ -24,6 +25,7 @@ import '../screens/users/product_list_details/view/product_list_details.dart';
 import '../screens/users/report/view/report.dart';
 import '../screens/users/user_home/view/user_home.dart';
 import '../screens/users/users_dashboard/view/user_dashboard.dart';
+import '../screens/users/watchlist/view/watchlist.dart';
 
 class AppRoute {
   // common
@@ -133,8 +135,9 @@ Route<dynamic> controller(RouteSettings routeSettings) {
       );
 
     case AppRoute.orderItemDetails:
+      final order = routeSettings.arguments as OrderModel;
       return PageRouteBuilder(
-        pageBuilder: (_, __, ___) => const OrderItemDetails(),
+        pageBuilder: (_, __, ___) => OrderItemDetails(order: order),
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
           return PageAnimation.transition(
               context, animation, secondaryAnimation, child);
@@ -199,6 +202,15 @@ Route<dynamic> controller(RouteSettings routeSettings) {
     case AppRoute.report:
       return PageRouteBuilder(
         pageBuilder: (_, __, ___) => const Report(),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          return PageAnimation.transition(
+              context, animation, secondaryAnimation, child);
+        },
+      );
+
+    case AppRoute.watchList:
+      return PageRouteBuilder(
+        pageBuilder: (_, __, ___) => const WatchList(),
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
           return PageAnimation.transition(
               context, animation, secondaryAnimation, child);

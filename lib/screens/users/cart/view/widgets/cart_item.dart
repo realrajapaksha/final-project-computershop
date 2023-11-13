@@ -1,47 +1,62 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
+import '../../../../../models/data_models/cart_model.dart';
 import '../../../../../utils/widgets/app_text.dart';
+import '../../controller/cart_controller.dart';
 
 class CartItem extends StatelessWidget {
-  const CartItem({super.key});
+  final CartModel cart;
+
+  const CartItem({super.key, required this.cart});
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.find<CartController>();
+
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 3, horizontal: 8),
       decoration: const BoxDecoration(),
       child: Column(
         children: [
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  AppText(
-                    text: "item one",
-                    size: 15,
-                  ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  AppText(text: "Rs 451000.00"),
-                ],
+              CachedNetworkImage(
+                imageUrl: cart.image,
+                width: 50,
               ),
-              Row(
-                children: [
-                  const AppText(text: "Units: 1"),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  IconButton(
-                    splashRadius: 20,
-                    color: Colors.white70,
-                    onPressed: () {},
-                    icon: const Icon(CupertinoIcons.delete),
-                  )
-                ],
+              Expanded(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        AppText(
+                          text: cart.pname,
+                          size: 16,
+                        ),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        AppText(
+                          text: "Rs. ${cart.price}",
+                          size: 14,
+                        ),
+                      ],
+                    ),
+                    IconButton(
+                      splashRadius: 20,
+                      color: Colors.white70,
+                      onPressed: () {
+                        controller.deleteCartItem(context, cart.cartId);
+                      },
+                      icon: const Icon(CupertinoIcons.delete),
+                    ),
+                  ],
+                ),
               )
             ],
           ),

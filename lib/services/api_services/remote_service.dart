@@ -1,8 +1,8 @@
 import 'dart:convert';
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:http/http.dart' as http;
 
+import '../../models/api_models/order_model.dart';
 import '../../models/data_models/user_model.dart';
 import '../../utils/shared_values.dart';
 import 'api_path.dart';
@@ -71,6 +71,31 @@ class RemoteService {
         return true;
       } else if (response.statusCode == 404) {
         return false;
+      }
+
+      return null;
+    } catch (exception) {
+      return null;
+    }
+  }
+
+  // check user
+  static Future<OrderAPIResponseModel?> getOrdersByCustomer({required String email}) async {
+    try {
+      var queryParams = <String, String>{
+        'email': email,
+      };
+
+      final url = Uri.parse(APIPath.baseAuthority + APIPath.order)
+          .replace(queryParameters: queryParams);
+
+      final response = await client.get(url, headers: headers).timeout(
+        timeOut,
+      );
+      final jsonString = utf8.decode(response.bodyBytes);
+      if (response.statusCode == 200) {
+        final apiResponse = OrderAPIResponseModel.fromJson(jsonDecode(jsonString));
+        return apiResponse;
       }
 
       return null;

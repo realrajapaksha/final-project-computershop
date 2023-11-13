@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import '../../../../utils/app_colors.dart';
 import '../../cart/view/cart.dart';
 import '../../order_items/view/order_items.dart';
+import '../../user_menu/view/user_menu.dart';
 import '../../users_dashboard/view/user_dashboard.dart';
 import '../controller/user_home_controller.dart';
 import 'widgets/bottom_nav.dart';
@@ -18,7 +19,7 @@ class UserHome extends StatefulWidget {
 class _UserHomeState extends State<UserHome> {
   final UserHomeController homeController = Get.put(UserHomeController());
 
-  static const menuItem = [UserDashboard(), OrderItems(),Cart()];
+  static const menuItem = [UserDashboard(), OrderItems(), Cart(), UserMenu()];
 
   @override
   void initState() {

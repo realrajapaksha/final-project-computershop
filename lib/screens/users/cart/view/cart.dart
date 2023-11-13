@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -29,44 +30,60 @@ class _CartState extends State<Cart> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(child: Container(
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              AppColors.highDeepBlue,
-              AppColors.deepBlue,
-              AppColors.lowDeepBlue
-            ]),
-      ),
-      child: Scaffold(
-        backgroundColor: Colors.transparent,
-        appBar: AppBar(
-          elevation: 0,
-          foregroundColor: Colors.white,
-          automaticallyImplyLeading: false,
-          backgroundColor: Colors.transparent,
-          centerTitle: true,
-          title: const Text("Cart"),
-          actions: [
-            TextButton(onPressed: (){}, child: const Text("Checkout"))
-          ],
+    return SafeArea(
+      child: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                AppColors.highDeepBlue,
+                AppColors.deepBlue,
+                AppColors.lowDeepBlue
+              ]),
         ),
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: 2,
-                  physics: const ScrollPhysics(),
-                  itemBuilder: (context, index){
-                    return CartItem();
-                  })
-            ],
+        child: Obx(
+          () => Scaffold(
+            backgroundColor: Colors.transparent,
+            appBar: AppBar(
+              elevation: 0,
+              foregroundColor: Colors.white,
+              automaticallyImplyLeading: false,
+              backgroundColor: Colors.transparent,
+              centerTitle: true,
+              title: const Text("Cart"),
+              actions: [
+                controller.cardList.isNotEmpty
+                    ? TextButton(
+                        onPressed: () {}, child: const Text("Checkout"))
+                    : const SizedBox()
+              ],
+            ),
+            body: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Obx(
+                    () => controller.loading.value
+                        ? const Center(
+                            child: CupertinoActivityIndicator(
+                              color: Colors.white,
+                              radius: 15,
+                            ),
+                          )
+                        : ListView.builder(
+                            shrinkWrap: true,
+                            itemCount: controller.cardList.length,
+                            physics: const ScrollPhysics(),
+                            itemBuilder: (context, index) {
+                              return CartItem(cart: controller.cardList[index]);
+                            }),
+                  )
+                ],
+              ),
+            ),
           ),
         ),
       ),
-    ));
+    );
   }
 }

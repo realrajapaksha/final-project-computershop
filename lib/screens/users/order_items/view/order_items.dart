@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -29,41 +30,53 @@ class _OrderItemsState extends State<OrderItems> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(child: Container(
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              AppColors.highDeepBlue,
-              AppColors.deepBlue,
-              AppColors.lowDeepBlue
-            ]),
-      ),
-      child: Scaffold(
-        backgroundColor: Colors.transparent,
-        appBar: AppBar(
-          elevation: 0,
-          foregroundColor: Colors.white,
-          automaticallyImplyLeading: false,
-          backgroundColor: Colors.transparent,
-          centerTitle: true,
-          title: const Text("Purchase Items"),
+    return SafeArea(
+      child: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                AppColors.highDeepBlue,
+                AppColors.deepBlue,
+                AppColors.lowDeepBlue
+              ]),
         ),
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: 2,
-                  physics: const ScrollPhysics(),
-                  itemBuilder: (context, index){
-                return OrderItem();
-              })
-            ],
+        child: Scaffold(
+          backgroundColor: Colors.transparent,
+          appBar: AppBar(
+            elevation: 0,
+            foregroundColor: Colors.white,
+            automaticallyImplyLeading: false,
+            backgroundColor: Colors.transparent,
+            centerTitle: true,
+            title: const Text("Purchase Items"),
+          ),
+          body: SingleChildScrollView(
+            child: Column(
+              children: [
+                Obx(
+                  () => controller.loading.value
+                      ? const Center(
+                          child: CupertinoActivityIndicator(
+                            color: Colors.white,
+                            radius: 15,
+                          ),
+                        )
+                      : ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: controller.orderList.length,
+                          physics: const ScrollPhysics(),
+                          itemBuilder: (context, index) {
+                            return OrderItem(
+                                order: controller.orderList[index]);
+                          }),
+                )
+              ],
+            ),
           ),
         ),
       ),
-    ));
+    );
   }
 }
