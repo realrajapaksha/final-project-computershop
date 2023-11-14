@@ -6,8 +6,6 @@ import '../../../../routes/app_route.dart';
 import '../../../../utils/shared_values.dart';
 
 class SplashController extends GetxController {
-  final isRetry = false.obs;
-
   Future<void> delaySplash(context) async {
     Future.delayed(const Duration(seconds: 2), () async {
       try {
@@ -28,7 +26,7 @@ class SplashController extends GetxController {
           }
         }
       } catch (e) {
-        isRetry.value = true;
+        //
       }
     });
   }

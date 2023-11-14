@@ -12,7 +12,6 @@ import '../../../../utils/shared_values.dart';
 class RegisterController extends GetxController {
   final nameController = TextEditingController();
   final emailController = TextEditingController();
-
   final ageController = TextEditingController();
   final tele1Controller = TextEditingController();
   final tele2Controller = TextEditingController();

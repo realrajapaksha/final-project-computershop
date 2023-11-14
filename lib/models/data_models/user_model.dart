@@ -46,6 +46,19 @@ class UserModel {
     };
   }
 
+  Map<String, dynamic> toUpdateFireStore() {
+    return {
+      "fullName": fullName,
+      "age": age,
+      "gender": gender,
+      "tele1": tele1,
+      "tele2": tele2,
+      "city": city,
+      "address": address,
+      "country": country
+    };
+  }
+
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
       id: json["id"],
       email: json["email"],

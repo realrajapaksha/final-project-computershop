@@ -61,8 +61,9 @@ class CartController extends GetxController {
 
   deleteCartItem(context, String id) async {
     try {
-      await db.collection("cart").doc(id).delete();
-      initialize();
+      await db.collection("cart").doc(id).delete().then((value) {
+        initialize();
+      });
     } catch (exception) {
       initialize();
     }
