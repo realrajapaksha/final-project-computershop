@@ -15,4 +15,13 @@ class WatchlistModel {
       required this.pname,
       required this.price,
       required this.image});
+
+
+  Map<String, dynamic> toAddFireStore() {
+    return {
+      "productId": productId,
+      "userId": userId,
+      "date": date,
+    };
+  }
 }

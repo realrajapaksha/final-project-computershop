@@ -3,12 +3,12 @@ class PayProductModel {
   final String pname;
   final String image;
   final int qty;
-  final double price;
+  final int price;
 
   const PayProductModel(
       {required this.productId,
       required this.pname,
-        required this.image,
+      required this.image,
       required this.qty,
       required this.price});
 }

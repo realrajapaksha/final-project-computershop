@@ -21,7 +21,7 @@ class ComputerController extends GetxController {
       computerList.clear();
 
       computerList.add(const DashboardItemModel(
-          id: "131124",
+          id: "v2TaapF9oALBSUhqrJ6t",
           name: "Macbook Pro M2",
           category: "computer",
           price: 485000,

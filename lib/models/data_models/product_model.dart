@@ -2,7 +2,7 @@ class ProductModel {
   final String productId;
   final String pname;
   final int quantity;
-  final double price;
+  final int price;
   final String description;
   final String tags;
   final String image;
@@ -12,7 +12,7 @@ class ProductModel {
       {required this.productId,
       required this.pname,
       required this.quantity,
-        required this.price,
+      required this.price,
       required this.description,
       required this.tags,
       required this.image,

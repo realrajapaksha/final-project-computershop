@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:computershop/utils/widgets/apps_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -113,6 +114,8 @@ class ProfileController extends GetxController {
         return;
       }
 
+      await AppsAlerts().openLoading(context, "Updating Profile");
+
       final model = UserModel(
           fullName: nameController.text.trim(),
           age: int.parse(ageController.text.trim()),
@@ -135,8 +138,11 @@ class ProfileController extends GetxController {
           .then((value) {
         initialize();
       });
+
+      await AppsAlerts.closeAllDialogs(context);
     } catch (exception) {
       initialize();
+      await AppsAlerts.closeAllDialogs(context);
     }
   }
 }

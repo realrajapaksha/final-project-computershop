@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../../models/data_models/dashboard_item_model.dart';
+import '../../../../../models/navigate_models/product_nav_model.dart';
 import '../../../../../routes/app_route.dart';
 import '../../../../../utils/app_colors.dart';
 import '../../../../../utils/widgets/app_text.dart';
@@ -26,8 +27,10 @@ class ItemCard extends StatelessWidget {
               borderRadius: BorderRadius.circular(12)),
           child: InkWell(
             onTap: () async {
+              final nav =
+                  ProductNavModel(productId: model.id, image: model.image);
               await Navigator.pushNamed(context, AppRoute.productDetails,
-                  arguments: model.id);
+                  arguments: nav);
               controller.initialize();
             },
             child: Container(

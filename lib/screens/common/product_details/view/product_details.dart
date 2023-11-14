@@ -1,18 +1,19 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:computershop/routes/app_route.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../models/data_models/pay_product_model.dart';
+import '../../../../models/navigate_models/product_nav_model.dart';
+import '../../../../routes/app_route.dart';
 import '../../../../utils/app_colors.dart';
 import '../../../../utils/widgets/app_button.dart';
 import '../../../../utils/widgets/app_text.dart';
 import '../controller/product_details_controller.dart';
 
 class ProductDetails extends StatefulWidget {
-  final String productId;
+  final ProductNavModel product;
 
-  const ProductDetails({super.key, required this.productId});
+  const ProductDetails({super.key, required this.product});
 
   @override
   State<ProductDetails> createState() => _ProductDetailsState();
@@ -24,7 +25,7 @@ class _ProductDetailsState extends State<ProductDetails> {
   @override
   void initState() {
     super.initState();
-    controller.initialize();
+    controller.initialize(widget.product);
   }
 
   @override
@@ -47,6 +48,7 @@ class _ProductDetailsState extends State<ProductDetails> {
           () => Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 5),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Column(
                   children: [
@@ -61,9 +63,9 @@ class _ProductDetailsState extends State<ProductDetails> {
                                 border: Border.all(
                                     color: AppColors.deepBlue, width: 2)),
                             child: Hero(
-                              tag: controller.product.value.image,
+                              tag: widget.product.image,
                               child: CachedNetworkImage(
-                                imageUrl: controller.product.value.image,
+                                imageUrl: widget.product.image,
                                 fit: BoxFit.cover,
                               ),
                             ),
@@ -88,7 +90,8 @@ class _ProductDetailsState extends State<ProductDetails> {
                                 height: 5,
                               ),
                               AppText(
-                                text: "Rs. ${controller.product.value.price}0",
+                                text:
+                                    "Rs. ${controller.product.value.price}.00",
                                 fontColor: AppColors.deepBlue,
                                 weight: FontWeight.bold,
                                 size: 18,
@@ -130,12 +133,22 @@ class _ProductDetailsState extends State<ProductDetails> {
                     Expanded(
                       flex: 1,
                       child: Container(
-                        decoration: BoxDecoration(border: Border.all()),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            border: Border.all(color: AppColors.mainBlue)),
                         child: TextButton(
                           style: TextButton.styleFrom(
                               padding: EdgeInsets.zero,
+                              foregroundColor: controller.isCart.value
+                                  ? AppColors.white
+                                  : null,
+                              backgroundColor: controller.isCart.value
+                                  ? AppColors.mainBlue
+                                  : null,
                               tapTargetSize: MaterialTapTargetSize.shrinkWrap),
-                          onPressed: () {},
+                          onPressed: () {
+                            controller.addCart(context);
+                          },
                           child: const Text("Add to Cart"),
                         ),
                       ),
@@ -146,12 +159,22 @@ class _ProductDetailsState extends State<ProductDetails> {
                     Expanded(
                       flex: 1,
                       child: Container(
-                        decoration: BoxDecoration(border: Border.all()),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            border: Border.all(color: AppColors.mainBlue)),
                         child: TextButton(
                           style: TextButton.styleFrom(
                               padding: EdgeInsets.zero,
+                              foregroundColor: controller.isWatch.value
+                                  ? AppColors.white
+                                  : null,
+                              backgroundColor: controller.isWatch.value
+                                  ? AppColors.mainBlue
+                                  : null,
                               tapTargetSize: MaterialTapTargetSize.shrinkWrap),
-                          onPressed: () {},
+                          onPressed: () {
+                            controller.addWatchlist(context);
+                          },
                           child: const Text("Add to Watchlist"),
                         ),
                       ),
@@ -162,12 +185,16 @@ class _ProductDetailsState extends State<ProductDetails> {
                     Expanded(
                       flex: 1,
                       child: Container(
-                        decoration: BoxDecoration(border: Border.all()),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            border: Border.all(color: AppColors.mainBlue)),
                         child: TextButton(
                           style: TextButton.styleFrom(
                               padding: EdgeInsets.zero,
                               tapTargetSize: MaterialTapTargetSize.shrinkWrap),
-                          onPressed: () {},
+                          onPressed: () {
+                            controller.report(context);
+                          },
                           child: const Text("Report"),
                         ),
                       ),
@@ -180,6 +207,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                 const AppText(
                   text: "Product Description",
                   fontColor: Colors.black,
+                  align: TextAlign.center,
                   weight: FontWeight.bold,
                   size: 16,
                 ),
@@ -189,7 +217,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                 AppText(
                   text: controller.product.value.description,
                   fontColor: Colors.black,
-                  size: 12,
+                  size: 13,
                 ),
                 const SizedBox(
                   height: 10,
@@ -202,7 +230,12 @@ class _ProductDetailsState extends State<ProductDetails> {
                     title: "Buy Now",
                     onTapped: () {
                       if (controller.product.value.quantity > 0) {
-                        final model = PayProductModel(productId: widget.productId, pname: controller.product.value.pname, qty: 1, price: controller.product.value.price, image: controller.product.value.image);
+                        final model = PayProductModel(
+                            productId: widget.product.productId,
+                            pname: controller.product.value.pname,
+                            qty: 1,
+                            price: controller.product.value.price,
+                            image: controller.product.value.image);
                         Navigator.pushNamed(context, AppRoute.paymentDetails,
                             arguments: [model]);
                       }

@@ -42,7 +42,7 @@ class CartItem extends StatelessWidget {
                           height: 5,
                         ),
                         AppText(
-                          text: "Rs. ${cart.price}",
+                          text: "Rs. ${cart.price}.00",
                           size: 14,
                         ),
                       ],
