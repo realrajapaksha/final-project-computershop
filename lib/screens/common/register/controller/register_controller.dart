@@ -1,18 +1,18 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:computershop/models/data_models/user_model.dart';
-import 'package:computershop/services/api_services/remote_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
+import '../../../../models/data_models/user_model.dart';
 import '../../../../models/navigate_models/register_nav_model.dart';
 import '../../../../routes/app_route.dart';
+import '../../../../services/api_services/remote_service.dart';
 import '../../../../utils/shared_values.dart';
 
 class RegisterController extends GetxController {
   final nameController = TextEditingController();
   final emailController = TextEditingController();
-  final genderController = TextEditingController();
+
   final ageController = TextEditingController();
   final tele1Controller = TextEditingController();
   final tele2Controller = TextEditingController();
@@ -29,6 +29,11 @@ class RegisterController extends GetxController {
   final cityEmpty = false.obs;
   final addressEmpty = false.obs;
   final countryEmpty = false.obs;
+  final userEmpty = false.obs;
+
+  final selectedGender = "Select Gender".obs;
+
+  final selectedUser = "Customer".obs;
 
   late GoogleSignInAccount account;
 
@@ -55,7 +60,8 @@ class RegisterController extends GetxController {
         emailEmpty.value = true;
         error = true;
       }
-      if (genderController.text.trim().isEmpty) {
+      if (selectedGender.value.trim().isEmpty ||
+          selectedGender.value == "Select Gender") {
         genderEmpty.value = true;
         error = true;
       }
@@ -94,6 +100,11 @@ class RegisterController extends GetxController {
         return;
       }
 
+      String status = "Approved";
+      if (selectedUser.value == "Employee") {
+        status = "Pending";
+      }
+
       final model = UserModel(
           id: account.id,
           email: account.email,
@@ -104,7 +115,10 @@ class RegisterController extends GetxController {
           tele2: tele2Controller.text.trim(),
           city: cityController.text.trim(),
           address: addressController.text.trim(),
-          country: countryController.text.trim());
+          country: countryController.text.trim(),
+          gender: selectedGender.value,
+          type: selectedUser.value,
+          status: status);
 
       // create account
       final result = await RemoteService.userRegister(userModel: model);

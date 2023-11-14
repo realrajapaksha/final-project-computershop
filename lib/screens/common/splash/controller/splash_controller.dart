@@ -14,7 +14,15 @@ class SplashController extends GetxController {
         bool internet = await InternetConnectionChecker().hasConnection;
         if (internet == true) {
           if (SharedValues.shared.isSignedIn) {
-            Navigator.popAndPushNamed(context, AppRoute.userHome);
+            if (SharedValues.shared.type == "Employee") {
+              if (SharedValues.shared.status == "Approved") {
+                Navigator.popAndPushNamed(context, AppRoute.adminDashboard);
+              } else {
+                Navigator.popAndPushNamed(context, AppRoute.login);
+              }
+            } else {
+              Navigator.popAndPushNamed(context, AppRoute.userHome);
+            }
           } else {
             Navigator.popAndPushNamed(context, AppRoute.login);
           }

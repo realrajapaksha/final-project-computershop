@@ -68,6 +68,8 @@ class RemoteService {
       if (response.statusCode == 200) {
         final apiResponse = UserModel.fromJson(jsonDecode(jsonString));
         SharedValues.shared.setUsername(apiResponse.fullName);
+        SharedValues.shared.setType(apiResponse.type);
+        SharedValues.shared.setStatus(apiResponse.status);
         return true;
       } else if (response.statusCode == 404) {
         return false;
@@ -80,7 +82,8 @@ class RemoteService {
   }
 
   // check user
-  static Future<OrderAPIResponseModel?> getOrdersByCustomer({required String email}) async {
+  static Future<OrderAPIResponseModel?> getOrdersByCustomer(
+      {required String email}) async {
     try {
       var queryParams = <String, String>{
         'email': email,
@@ -90,11 +93,12 @@ class RemoteService {
           .replace(queryParameters: queryParams);
 
       final response = await client.get(url, headers: headers).timeout(
-        timeOut,
-      );
+            timeOut,
+          );
       final jsonString = utf8.decode(response.bodyBytes);
       if (response.statusCode == 200) {
-        final apiResponse = OrderAPIResponseModel.fromJson(jsonDecode(jsonString));
+        final apiResponse =
+            OrderAPIResponseModel.fromJson(jsonDecode(jsonString));
         return apiResponse;
       }
 

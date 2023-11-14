@@ -12,6 +12,7 @@ import '../screens/common/computers/view/conputers.dart';
 import '../screens/common/login/view/login.dart';
 import '../screens/common/phones/view/phones.dart';
 import '../screens/common/product_details/view/product_details.dart';
+import '../screens/common/profile/view/profile.dart';
 import '../screens/common/register/view/register.dart';
 import '../screens/common/splash/view/splash_screen.dart';
 import '../screens/users/cart/view/cart.dart';
@@ -28,7 +29,7 @@ import '../screens/users/users_dashboard/view/user_dashboard.dart';
 import '../screens/users/watchlist/view/watchlist.dart';
 
 class AppRoute {
-  // common
+  /// common
   static const String splash = 'splash';
   static const String login = 'login';
   static const String register = 'register';
@@ -38,10 +39,12 @@ class AppRoute {
   static const String computers = 'computers';
   static const String productDetails = 'product_details';
 
-  // user
+  static const String profile = 'profile';
+
+  /// user
   static const String userHome = 'user_home';
   static const String userDashboard = 'user_dashboard';
-  static const String userProfile = 'user_profile';
+
   static const String report = 'report';
   static const String productListDetails = 'product_list_details';
   static const String paymentDetails = 'paymentDetails';
@@ -53,9 +56,8 @@ class AppRoute {
   static const String orderItemDetails = 'order_item_details';
   static const String watchList = 'watch_list';
 
-  // admin
+  /// admin
   static const String adminDashboard = 'admin_dashboard';
-  static const String adminProfile = 'admin_profile';
   static const String addItem = 'add_item';
   static const String complains = 'complains';
   static const String ordersList = 'orders_list';
@@ -113,6 +115,15 @@ Route<dynamic> controller(RouteSettings routeSettings) {
       final id = routeSettings.arguments as String;
       return PageRouteBuilder(
         pageBuilder: (_, __, ___) => ProductDetails(productId: id),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          return PageAnimation.transition(
+              context, animation, secondaryAnimation, child);
+        },
+      );
+
+    case AppRoute.profile:
+      return PageRouteBuilder(
+        pageBuilder: (_, __, ___) => const Profile(),
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
           return PageAnimation.transition(
               context, animation, secondaryAnimation, child);

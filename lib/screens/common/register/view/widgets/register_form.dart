@@ -1,6 +1,9 @@
+import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../../../utils/app_colors.dart';
+import '../../../../../utils/widgets/app_text.dart';
 import '../../../../../utils/widgets/app_text_field.dart';
 import '../../controller/register_controller.dart';
 
@@ -10,6 +13,11 @@ class RegisterForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<RegisterController>();
+
+    final gender = ["Select Gender", "Male", "Female"];
+
+    final user = ["Customer", "Employee"];
+
     return Obx(
       () => Column(
         children: [
@@ -57,13 +65,44 @@ class RegisterForm extends StatelessWidget {
           const SizedBox(
             height: 10,
           ),
-          AppTextField(
-              labelText: "Gender",
-              controller: controller.genderController,
-              isEmpty: controller.genderEmpty.value,
-              onValueChanged: (val) {
-                controller.genderEmpty.value = val;
-              }),
+          Container(
+            height: 50,
+            width: MediaQuery.of(context).size.width,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(5),
+                border: Border.all(
+                    color: controller.genderEmpty.value
+                        ? Colors.red
+                        : Colors.white)),
+            child: DropdownButtonHideUnderline(
+              child: DropdownButton(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                icon: Icon(
+                  Icons.arrow_drop_down_circle_outlined,
+                  color:
+                      controller.genderEmpty.value ? Colors.red : Colors.white,
+                ),
+                dropdownColor: AppColors.highDeepBlue,
+                value: controller.selectedGender.value,
+                items: gender.map((String item) {
+                  return DropdownMenuItem(
+                    value: item,
+                    child: AppText(
+                        size: 14,
+                        text: item.toString(),
+                        fontColor: AppColors.white,
+                        overflow: TextOverflow.ellipsis),
+                  );
+                }).toList(),
+                onChanged: (String? newValue) {
+                  if (newValue != null) {
+                    controller.selectedGender.value = newValue;
+                    controller.genderEmpty.value = false;
+                  }
+                },
+              ),
+            ),
+          ),
           const SizedBox(
             height: 10,
           ),
@@ -107,15 +146,65 @@ class RegisterForm extends StatelessWidget {
           const SizedBox(
             height: 10,
           ),
-          AppTextField(
-              labelText: "Country",
-              controller: controller.countryController,
-              isEmpty: controller.countryEmpty.value,
-              onValueChanged: (val) {
-                controller.countryEmpty.value = val;
-              }),
+          InkWell(
+            onTap: () {
+              showCountryPicker(
+                context: context,
+                // optional. Shows phone code before the country name.
+                onSelect: (Country country) {
+                  controller.countryController.text = country.name;
+                  controller.countryEmpty.value = false;
+                },
+              );
+            },
+            child: AppTextField(
+                labelText: "Country",
+                enable: false,
+                controller: controller.countryController,
+                isEmpty: controller.countryEmpty.value,
+                onValueChanged: (val) {
+                  controller.countryEmpty.value = val;
+                }),
+          ),
           const SizedBox(
             height: 10,
+          ),
+          Container(
+            height: 50,
+            width: MediaQuery.of(context).size.width,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(5),
+                border: Border.all(
+                    color: controller.userEmpty.value
+                        ? Colors.red
+                        : Colors.white)),
+            child: DropdownButtonHideUnderline(
+              child: DropdownButton(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                icon: Icon(
+                  Icons.arrow_drop_down_circle_outlined,
+                  color: controller.userEmpty.value ? Colors.red : Colors.white,
+                ),
+                dropdownColor: AppColors.highDeepBlue,
+                value: controller.selectedUser.value,
+                items: user.map((String item) {
+                  return DropdownMenuItem(
+                    value: item,
+                    child: AppText(
+                        size: 14,
+                        text: item.toString(),
+                        fontColor: AppColors.white,
+                        overflow: TextOverflow.ellipsis),
+                  );
+                }).toList(),
+                onChanged: (String? newValue) {
+                  if (newValue != null) {
+                    controller.selectedUser.value = newValue;
+                    controller.userEmpty.value = false;
+                  }
+                },
+              ),
+            ),
           ),
         ],
       ),

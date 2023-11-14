@@ -10,7 +10,9 @@ abstract class SharedKeys {
 
   static const String email = 'email';
 
-  static const String appStatus = "appStatus";
+  static const String status = "status";
+
+  static const String type = "type";
 }
 
 class SharedValues {
@@ -45,5 +47,19 @@ class SharedValues {
 
   void setEmail(String email) {
     _pref.setString(SharedKeys.email, email);
+  }
+
+  // type
+  String get type => _pref.getString(SharedKeys.type) ?? '';
+
+  void setType(String type) {
+    _pref.setString(SharedKeys.type, type);
+  }
+
+  // status
+  String get status => _pref.getString(SharedKeys.status) ?? '';
+
+  void setStatus(String status) {
+    _pref.setString(SharedKeys.status, status);
   }
 }

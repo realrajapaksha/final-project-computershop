@@ -1,9 +1,9 @@
-import 'package:computershop/utils/shared_values.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../routes/app_route.dart';
 import '../../../../utils/app_colors.dart';
+import '../../../../utils/shared_values.dart';
 import '../../../../utils/widgets/app_text.dart';
 import '../controller/user_dashboard_controller.dart';
 import 'widgets/item_card.dart';
@@ -56,13 +56,16 @@ class _UserDashboardState extends State<UserDashboard> {
                           height: 60,
                         ),
                         IconButton(
-                            splashRadius: 20,
-                            onPressed: () {},
-                            icon: const Icon(
-                              Icons.person_pin,
-                              size: 30,
-                              color: AppColors.white,
-                            ))
+                          splashRadius: 20,
+                          onPressed: () {
+                            Navigator.pushNamed(context, AppRoute.profile);
+                          },
+                          icon: const Icon(
+                            Icons.person_pin,
+                            size: 35,
+                            color: AppColors.white,
+                          ),
+                        ),
                       ],
                     ),
                     const AppText(

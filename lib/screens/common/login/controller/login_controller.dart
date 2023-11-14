@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:computershop/utils/widgets/apps_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -33,8 +34,8 @@ class LoginController extends GetxController {
 
   checkAccount(context, GoogleSignInAccount account) async {
     try {
-      SharedValues.shared.setUsername("Induwra Rajapaksha");
-      final res = true;// await RemoteService.checkUser(email: account.email);
+      await AppsAlerts().openLoading(context, "Checking your account");
+      final res = await RemoteService.checkUser(email: account.email);
 
       if (res != null) {
         if (res) {
@@ -46,10 +47,11 @@ class LoginController extends GetxController {
         }
       } else {
         // error connection api
+        await AppsAlerts.closeAllDialogs(context);
         await _googleSignIn.disconnect();
       }
     } catch (exception) {
-      // error
+      await AppsAlerts.closeAllDialogs(context);
     }
   }
 
@@ -59,7 +61,17 @@ class LoginController extends GetxController {
     await _googleSignIn.disconnect();
   }
 
-  routeToHome(context) {
-    Navigator.popAndPushNamed(context, AppRoute.userHome);
+  routeToHome(context) async {
+    if (SharedValues.shared.type == "Employee") {
+      if (SharedValues.shared.status == "Approved") {
+        Navigator.popAndPushNamed(context, AppRoute.adminDashboard);
+      } else {
+        await AppsAlerts.closeAllDialogs(context);
+        await AppsAlerts().openDialog(context, "Error!",
+            "Your account not approved by admin. Please contact admin");
+      }
+    } else {
+      Navigator.popAndPushNamed(context, AppRoute.userHome);
+    }
   }
 }
