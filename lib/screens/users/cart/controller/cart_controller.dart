@@ -25,6 +25,7 @@ class CartController extends GetxController {
 
   getCartDetails() async {
     try {
+      cardList.clear();
       await db
           .collection("cart")
           .where("userId", isEqualTo: email.value)
