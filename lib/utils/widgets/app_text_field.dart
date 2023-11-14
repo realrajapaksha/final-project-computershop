@@ -82,7 +82,7 @@ class _AppMainTextFieldState extends State<AppTextField> {
       obscureText: widget.obscureText,
       onChanged: (String value) {
         if (widget.isRequired) {
-          final isEmpty = value.trim().isEmpty ? true : false;
+          final isEmpty = value.trim().isEmpty;
           widget.onValueChanged(isEmpty);
         }
 
@@ -95,7 +95,7 @@ class _AppMainTextFieldState extends State<AppTextField> {
       },
       onSubmitted: (String value) {
         if (widget.isRequired) {
-          final isEmpty = value.trim().isEmpty == '' ? true : false;
+          final isEmpty = value.trim().isEmpty;
           widget.onValueChanged(isEmpty);
         }
       },

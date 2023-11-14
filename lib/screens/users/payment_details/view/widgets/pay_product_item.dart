@@ -40,23 +40,24 @@ class PayProductItem extends StatelessWidget {
                 children: [
                   AppText(
                     text: product.pname,
-                    fontColor: Colors.black,
-                    size: 14,
+                    weight: FontWeight.w900,
+                    size: 15,
                   ),
                   const SizedBox(
                     height: 5,
                   ),
                   AppText(
-                    text: "Rs ${product.price}0",
-                    fontColor: Colors.black,
+                    text: "Rs. ${product.price}.00",
+                    size: 13,
                   ),
                 ],
               )),
           Expanded(
               flex: 1,
               child: AppText(
-                text: "Unit : ${product.qty}",
-                fontColor: Colors.black,
+                text: "x${product.qty}",
+                align: TextAlign.end,
+                size: 14,
               )),
         ],
       ),
