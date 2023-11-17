@@ -209,7 +209,7 @@ class PaymentDetailsController extends GetxController {
           List<OrderProductModel> itemList = [];
           int totalPrice = 0;
           for (var item in productList) {
-            totalPrice + totalPrice + item.price;
+            totalPrice = totalPrice + item.price;
             itemList.add(OrderProductModel(
                 orderId: result.id,
                 productId: item.productId,
@@ -226,7 +226,8 @@ class PaymentDetailsController extends GetxController {
 
           await db
               .collection("payment")
-              .add(paymentModel.toAddFireStore())
+              .doc(paymentIntent!["id"])
+              .set(paymentModel.toAddFireStore())
               .then((value) async {
             for (var orderItem in itemList) {
               await db

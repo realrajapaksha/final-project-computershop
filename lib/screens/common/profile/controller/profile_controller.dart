@@ -1,11 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:computershop/screens/common/splash/view/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../models/data_models/user_model.dart';
 import '../../../../utils/shared_values.dart';
 import '../../../../utils/widgets/apps_alert.dart';
+import '../../splash/view/splash_screen.dart';
 
 class ProfileController extends GetxController {
   final nameController = TextEditingController();

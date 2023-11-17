@@ -30,7 +30,7 @@ class CartItem extends StatelessWidget {
                   width: 50,
                 ),
               ),
-              const SizedBox(width: 5,),
+              const SizedBox(width: 10,),
               Expanded(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,

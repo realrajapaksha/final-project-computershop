@@ -7,6 +7,7 @@ import '../../../../models/data_models/pay_product_model.dart';
 import '../../../../models/navigate_models/product_nav_model.dart';
 import '../../../../routes/app_route.dart';
 import '../../../../utils/app_colors.dart';
+import '../../../../utils/shared_values.dart';
 import '../../../../utils/widgets/app_button.dart';
 import '../../../../utils/widgets/app_text.dart';
 import '../controller/product_details_controller.dart';
@@ -44,6 +45,15 @@ class _ProductDetailsState extends State<ProductDetails> {
           backgroundColor: Colors.transparent,
           centerTitle: true,
           title: const Text("Product Details"),
+          actions: [
+            SharedValues.shared.type == "Employee"
+                ? IconButton(
+                    onPressed: () {},
+                    splashRadius: 20,
+                    color: AppColors.deepBlue,
+                    icon: const Icon(Icons.edit_document))
+                : const SizedBox()
+          ],
         ),
         body: Obx(
           () => Padding(
@@ -113,17 +123,36 @@ class _ProductDetailsState extends State<ProductDetails> {
                                   const SizedBox(
                                     height: 5,
                                   ),
-                                  AppText(
-                                    text: controller.product.value.quantity > 0
-                                        ? "In Stock"
-                                        : "Out of Stock",
-                                    fontColor:
-                                        controller.product.value.quantity > 0
-                                            ? Colors.teal
-                                            : Colors.red,
-                                    weight: FontWeight.bold,
-                                    size: 14,
-                                  ),
+                                  SharedValues.shared.type == "Employee"
+                                      ? AppText(
+                                          text:
+                                              "Stock: ${controller.product.value.quantity}",
+                                          fontColor: controller
+                                                      .product.value.quantity >
+                                                  5
+                                              ? Colors.teal
+                                              : controller.product.value
+                                                          .quantity >
+                                                      0
+                                                  ? Colors.red
+                                                  : Colors.black,
+                                          weight: FontWeight.bold,
+                                          size: 14,
+                                        )
+                                      : AppText(
+                                          text: controller
+                                                      .product.value.quantity >
+                                                  0
+                                              ? "In Stock"
+                                              : "Out of Stock",
+                                          fontColor: controller
+                                                      .product.value.quantity >
+                                                  0
+                                              ? Colors.teal
+                                              : Colors.red,
+                                          weight: FontWeight.bold,
+                                          size: 14,
+                                        ),
                                   const SizedBox(
                                     height: 5,
                                   ),
@@ -143,82 +172,89 @@ class _ProductDetailsState extends State<ProductDetails> {
                     const SizedBox(
                       height: 10,
                     ),
-                    Row(
-                      children: [
-                        Expanded(
-                          flex: 1,
-                          child: Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(5),
-                                border: Border.all(color: AppColors.mainBlue)),
-                            child: TextButton(
-                              style: TextButton.styleFrom(
-                                  padding: EdgeInsets.zero,
-                                  foregroundColor: controller.isCart.value
-                                      ? AppColors.white
-                                      : null,
-                                  backgroundColor: controller.isCart.value
-                                      ? AppColors.mainBlue
-                                      : null,
-                                  tapTargetSize:
-                                      MaterialTapTargetSize.shrinkWrap),
-                              onPressed: () {
-                                controller.addCart(context);
-                              },
-                              child: const Text("Add to Cart"),
-                            ),
+                    SharedValues.shared.type == "Employee"
+                        ? const SizedBox()
+                        : Row(
+                            children: [
+                              Expanded(
+                                flex: 1,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(5),
+                                      border: Border.all(
+                                          color: AppColors.mainBlue)),
+                                  child: TextButton(
+                                    style: TextButton.styleFrom(
+                                        padding: EdgeInsets.zero,
+                                        foregroundColor: controller.isCart.value
+                                            ? AppColors.white
+                                            : null,
+                                        backgroundColor: controller.isCart.value
+                                            ? AppColors.mainBlue
+                                            : null,
+                                        tapTargetSize:
+                                            MaterialTapTargetSize.shrinkWrap),
+                                    onPressed: () {
+                                      controller.addCart(context);
+                                    },
+                                    child: const Text("Add to Cart"),
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(
+                                width: 1,
+                              ),
+                              Expanded(
+                                flex: 1,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(5),
+                                      border: Border.all(
+                                          color: AppColors.mainBlue)),
+                                  child: TextButton(
+                                    style: TextButton.styleFrom(
+                                        padding: EdgeInsets.zero,
+                                        foregroundColor:
+                                            controller.isWatch.value
+                                                ? AppColors.white
+                                                : null,
+                                        backgroundColor:
+                                            controller.isWatch.value
+                                                ? AppColors.mainBlue
+                                                : null,
+                                        tapTargetSize:
+                                            MaterialTapTargetSize.shrinkWrap),
+                                    onPressed: () {
+                                      controller.addWatchlist(context);
+                                    },
+                                    child: const Text("Add to Watchlist"),
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(
+                                width: 1,
+                              ),
+                              Expanded(
+                                flex: 1,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(5),
+                                      border: Border.all(
+                                          color: AppColors.mainBlue)),
+                                  child: TextButton(
+                                    style: TextButton.styleFrom(
+                                        padding: EdgeInsets.zero,
+                                        tapTargetSize:
+                                            MaterialTapTargetSize.shrinkWrap),
+                                    onPressed: () {
+                                      controller.report(context);
+                                    },
+                                    child: const Text("Report"),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
-                        ),
-                        const SizedBox(
-                          width: 1,
-                        ),
-                        Expanded(
-                          flex: 1,
-                          child: Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(5),
-                                border: Border.all(color: AppColors.mainBlue)),
-                            child: TextButton(
-                              style: TextButton.styleFrom(
-                                  padding: EdgeInsets.zero,
-                                  foregroundColor: controller.isWatch.value
-                                      ? AppColors.white
-                                      : null,
-                                  backgroundColor: controller.isWatch.value
-                                      ? AppColors.mainBlue
-                                      : null,
-                                  tapTargetSize:
-                                      MaterialTapTargetSize.shrinkWrap),
-                              onPressed: () {
-                                controller.addWatchlist(context);
-                              },
-                              child: const Text("Add to Watchlist"),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 1,
-                        ),
-                        Expanded(
-                          flex: 1,
-                          child: Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(5),
-                                border: Border.all(color: AppColors.mainBlue)),
-                            child: TextButton(
-                              style: TextButton.styleFrom(
-                                  padding: EdgeInsets.zero,
-                                  tapTargetSize:
-                                      MaterialTapTargetSize.shrinkWrap),
-                              onPressed: () {
-                                controller.report(context);
-                              },
-                              child: const Text("Report"),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
                     const SizedBox(
                       height: 15,
                     ),
@@ -241,25 +277,27 @@ class _ProductDetailsState extends State<ProductDetails> {
                       height: 10,
                     ),
                     const Spacer(),
-                    AppButton(
-                        bgColor: controller.product.value.quantity > 0
-                            ? AppColors.mainBlue
-                            : Colors.grey,
-                        title: "Buy Now",
-                        onTapped: () async {
-                          if (controller.product.value.quantity > 0) {
-                            final model = PayProductModel(
-                                productId: widget.product.productId,
-                                pname: controller.product.value.pname,
-                                qty: 1,
-                                price: controller.product.value.price,
-                                image: controller.product.value.image);
-                            await Navigator.pushNamed(
-                                context, AppRoute.paymentDetails,
-                                arguments: [model]);
-                            controller.initialize(widget.product);
-                          }
-                        })
+                    SharedValues.shared.type == "Employee"
+                        ? const SizedBox()
+                        : AppButton(
+                            bgColor: controller.product.value.quantity > 0
+                                ? AppColors.mainBlue
+                                : Colors.grey,
+                            title: "Buy Now",
+                            onTapped: () async {
+                              if (controller.product.value.quantity > 0) {
+                                final model = PayProductModel(
+                                    productId: widget.product.productId,
+                                    pname: controller.product.value.pname,
+                                    qty: 1,
+                                    price: controller.product.value.price,
+                                    image: controller.product.value.image);
+                                await Navigator.pushNamed(
+                                    context, AppRoute.paymentDetails,
+                                    arguments: [model]);
+                                controller.initialize(widget.product);
+                              }
+                            })
                   ],
                 ),
               ],

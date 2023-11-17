@@ -111,6 +111,7 @@ class SalesController extends GetxController {
           .then((value) {
         if (value.docs.isNotEmpty) {
           for (var doc in value.docs) {
+            print(doc.id);
             itemSold.value =
                 (int.parse(itemSold.value) + doc["quantity"]).toString();
           }
@@ -185,15 +186,27 @@ class SalesController extends GetxController {
         totalStock.value = value.docs.length.toString();
       });
 
-      await db.collection("products").where("category", isEqualTo: "Computer").get().then((value) {
+      await db
+          .collection("products")
+          .where("category", isEqualTo: "Computer")
+          .get()
+          .then((value) {
         computers.value = value.docs.length.toString();
       });
 
-      await db.collection("products").where("category", isEqualTo: "Phone").get().then((value) {
+      await db
+          .collection("products")
+          .where("category", isEqualTo: "Phone")
+          .get()
+          .then((value) {
         phones.value = value.docs.length.toString();
       });
 
-      await db.collection("products").where("category", isEqualTo: "Accessories").get().then((value) {
+      await db
+          .collection("products")
+          .where("category", isEqualTo: "Accessories")
+          .get()
+          .then((value) {
         accessories.value = value.docs.length.toString();
       });
     } catch (exception) {

@@ -29,12 +29,18 @@ class OrderItem extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 8),
               child: Row(
-                
                 children: [
-                  CachedNetworkImage(
-                    imageUrl: order.image,
-                    width: 50,
-                    fit: BoxFit.cover,
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(8),
+                    child: CachedNetworkImage(
+                      imageUrl: order.image,
+                      width: 50,
+                      height: 50,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 10,
                   ),
                   Expanded(
                     child: Row(
@@ -58,7 +64,8 @@ class OrderItem extends StatelessWidget {
                           children: [
                             AppText(
                                 text: DateFormat("yyyy-MM-dd").format(
-                                    DateTime.fromMillisecondsSinceEpoch(order.date))),
+                                    DateTime.fromMillisecondsSinceEpoch(
+                                        order.date))),
                             const SizedBox(
                               height: 5,
                             ),

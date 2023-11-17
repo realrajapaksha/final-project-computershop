@@ -9,6 +9,7 @@ import '../../controller/watchlist_controller.dart';
 
 class WatchlistItem extends StatelessWidget {
   final WatchlistModel watchItem;
+
   const WatchlistItem({super.key, required this.watchItem});
 
   @override
@@ -25,11 +26,13 @@ class WatchlistItem extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  CachedNetworkImage(
-                    imageUrl:
-                        watchItem.image,
-                    width: 60,
-                    height: 60,
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(8),
+                    child: CachedNetworkImage(
+                      imageUrl: watchItem.image,
+                      width: 60,
+                      height: 60,
+                    ),
                   ),
                   const SizedBox(
                     width: 10,

@@ -43,29 +43,28 @@ class OrderItemsController extends GetxController {
                   for (var item in orderProducts.docs) {
                     await db
                         .collection("products")
-                        .doc( item["productId"])
+                        .doc(item["productId"])
                         .get()
                         .then((value) {
                       if (value.exists) {
+                        final model = OrderModel(
+                            orderId: doc.id,
+                            paymentId: doc["paymentId"],
+                            userId: doc["userId"],
+                            paymentMethod: doc["paymentMethod"],
+                            status: doc["status"],
+                            address: doc["address"],
+                            city: doc["city"],
+                            date: doc["date"],
+                            note: doc["note"],
+                            tele1: doc["tele1"],
+                            tele2: doc["tele2"],
+                            pname: value["pname"],
+                            quantity: item["quantity"],
+                            image: value["image"],
+                            price: value["price"]);
 
-                          final model = OrderModel(
-                              orderId: doc.id,
-                              paymentId: doc["paymentId"],
-                              userId: doc["userId"],
-                              paymentMethod: doc["paymentMethod"],
-                              status: doc["status"],
-                              address: doc["address"],
-                              city: doc["city"],
-                              date: doc["date"],
-                              note: doc["note"],
-                              tele1: doc["tele1"],
-                              tele2: doc["tele2"],
-                              pname: value["pname"],
-                              quantity: item["quantity"],
-                              image: value["image"],
-                              price: value["price"]);
-
-                          orderList.add(model);
+                        orderList.add(model);
                       }
                     });
                   }

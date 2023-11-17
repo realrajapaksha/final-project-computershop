@@ -1,7 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:computershop/screens/admin/admin_dashboard/view/admin_dashboard.dart';
-import 'package:computershop/screens/users/user_home/view/user_home.dart';
-import 'package:computershop/utils/widgets/apps_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -10,7 +7,9 @@ import '../../../../models/navigate_models/register_nav_model.dart';
 import '../../../../routes/app_route.dart';
 import '../../../../services/api_services/remote_service.dart';
 import '../../../../utils/shared_values.dart';
+import '../../../../utils/widgets/apps_alert.dart';
 import '../../../admin/admin_home/view/admin_home.dart';
+import '../../../users/user_home/view/user_home.dart';
 
 class LoginController extends GetxController {
   final loading = false.obs;
@@ -24,6 +23,8 @@ class LoginController extends GetxController {
   login(context) async {
     try {
       loading.value = true;
+
+      await _googleSignIn.signOut();
 
       final account = await _googleSignIn.signIn();
       if (account != null) {
