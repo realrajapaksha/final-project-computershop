@@ -16,7 +16,6 @@ class AdminDashboard extends StatefulWidget {
 }
 
 class _AdminDashboardState extends State<AdminDashboard> {
-
   final controller = Get.put(AdminDashboardController());
 
   @override
@@ -94,7 +93,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
                       topRight: Radius.circular(15)),
                 ),
                 child: Obx(
-                      () => Padding(
+                  () => Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 3.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -230,7 +229,13 @@ class _AdminDashboardState extends State<AdminDashboard> {
           ),
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+          onPressed: () async {
+            await Navigator.pushNamed(context, AppRoute.addItem);
+            controller.initialize();
+          },
+          foregroundColor: Colors.white,
+          child: const Icon(Icons.add)),
     );
   }
 }
-

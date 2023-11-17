@@ -30,33 +30,6 @@ class _AdminMenuState extends State<AdminMenu> {
             child: Column(
               children: [
                 InkWell(
-                  onTap: () {
-                    Navigator.pushNamed(context, AppRoute.watchList);
-                  },
-                  child: Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 5, vertical: 8),
-                    decoration: BoxDecoration(
-                        border: Border.all(color: Colors.white70)),
-                    child: const Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        AppText(
-                          text: "Watchlist",
-                          size: 14,
-                        ),
-                        Icon(
-                          Icons.arrow_circle_right_outlined,
-                          color: Colors.white70,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 2,
-                ),
-                InkWell(
                   onTap: () {},
                   child: Container(
                     padding:

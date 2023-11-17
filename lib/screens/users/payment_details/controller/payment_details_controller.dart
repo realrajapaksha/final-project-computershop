@@ -207,7 +207,9 @@ class PaymentDetailsController extends GetxController {
             .add(order.toFireStore())
             .then((result) async {
           List<OrderProductModel> itemList = [];
+          int totalPrice = 0;
           for (var item in productList) {
+            totalPrice + totalPrice + item.price;
             itemList.add(OrderProductModel(
                 orderId: result.id,
                 productId: item.productId,
@@ -219,7 +221,8 @@ class PaymentDetailsController extends GetxController {
               paymentId: paymentIntent!["id"],
               orderId: result.id,
               userId: SharedValues.shared.email,
-              date: DateTime.now().millisecondsSinceEpoch);
+              date: DateTime.now().millisecondsSinceEpoch,
+              total: totalPrice);
 
           await db
               .collection("payment")
@@ -235,9 +238,16 @@ class PaymentDetailsController extends GetxController {
                     order: order,
                     itemList: itemList);
 
-                await db.collection("cart").where("productId", isEqualTo: orderItem.productId).get().then((value) async {
-                  if(value.docs.isNotEmpty){
-                    for(var cartItem in value.docs){
+                await db.collection("products").doc(orderItem.productId).update(
+                    {"quantity": FieldValue.increment(-orderItem.quantity)});
+
+                await db
+                    .collection("cart")
+                    .where("productId", isEqualTo: orderItem.productId)
+                    .get()
+                    .then((value) async {
+                  if (value.docs.isNotEmpty) {
+                    for (var cartItem in value.docs) {
                       await db.collection("cart").doc(cartItem.id).delete();
                     }
                   }
