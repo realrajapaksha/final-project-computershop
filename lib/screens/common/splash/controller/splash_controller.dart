@@ -14,7 +14,7 @@ class SplashController extends GetxController {
           if (SharedValues.shared.isSignedIn) {
             if (SharedValues.shared.type == "Employee") {
               if (SharedValues.shared.status == "Approved") {
-                Navigator.popAndPushNamed(context, AppRoute.adminDashboard);
+                Navigator.popAndPushNamed(context, AppRoute.adminHome);
               } else {
                 Navigator.popAndPushNamed(context, AppRoute.login);
               }

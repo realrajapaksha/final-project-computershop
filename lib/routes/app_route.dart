@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 
 import '../models/api_models/order_model.dart';
 import '../models/data_models/pay_product_model.dart';
+import '../models/navigate_models/payment_nav_model.dart';
 import '../models/navigate_models/product_nav_model.dart';
 import '../models/navigate_models/register_nav_model.dart';
 import '../screens/admin/add_item/view/add_item.dart';
 import '../screens/admin/admin_dashboard/view/admin_dashboard.dart';
+import '../screens/admin/admin_home/view/admin_home.dart';
 import '../screens/admin/complains/view/complains.dart';
 import '../screens/admin/view_complain/view/view_complain.dart';
+import '../screens/admin/view_order/view/view_order.dart';
 import '../screens/common/accessories/view/accessories.dart';
 import '../screens/common/computers/view/conputers.dart';
 import '../screens/common/login/view/login.dart';
@@ -58,6 +61,7 @@ class AppRoute {
   static const String watchList = 'watch_list';
 
   /// admin
+  static const String adminHome = 'admin_home';
   static const String adminDashboard = 'admin_dashboard';
   static const String addItem = 'add_item';
   static const String complains = 'complains';
@@ -194,8 +198,9 @@ Route<dynamic> controller(RouteSettings routeSettings) {
       );
 
     case AppRoute.paymentSuccess:
+      final payment = routeSettings.arguments as PaymentNavModel;
       return PageRouteBuilder(
-        pageBuilder: (_, __, ___) => const PaymentSuccess(),
+        pageBuilder: (_, __, ___) => PaymentSuccess(payment: payment),
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
           return PageAnimation.transition(
               context, animation, secondaryAnimation, child);
@@ -230,6 +235,8 @@ Route<dynamic> controller(RouteSettings routeSettings) {
       );
 
     /// admin
+    case AppRoute.adminHome:
+      return MaterialPageRoute(builder: (_) => const AdminHome());
     case AppRoute.adminDashboard:
       return MaterialPageRoute(builder: (_) => const AdminDashboard());
 
@@ -254,6 +261,16 @@ Route<dynamic> controller(RouteSettings routeSettings) {
     case AppRoute.viewComplain:
       return PageRouteBuilder(
         pageBuilder: (_, __, ___) => const ViewComplain(),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          return PageAnimation.transition(
+              context, animation, secondaryAnimation, child);
+        },
+      );
+
+    case AppRoute.viewOrder:
+      final order = routeSettings.arguments as OrderModel;
+      return PageRouteBuilder(
+        pageBuilder: (_, __, ___) => ViewOrder(order: order),
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
           return PageAnimation.transition(
               context, animation, secondaryAnimation, child);

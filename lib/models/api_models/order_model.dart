@@ -1,18 +1,3 @@
-class OrderAPIResponseModel {
-  final List<OrderModel> orderList;
-
-  const OrderAPIResponseModel({required this.orderList});
-
-  factory OrderAPIResponseModel.fromJson(Map<String, dynamic> json) =>
-      OrderAPIResponseModel(
-        orderList: List<OrderModel>.from(
-          json["data"].map(
-            (x) => OrderModel.fromJson(x),
-          ),
-        ),
-      );
-}
-
 class OrderModel {
   final String orderId;
   final String paymentId;
@@ -49,7 +34,6 @@ class OrderModel {
 
   Map<String, dynamic> toFireStore() {
     return {
-      "orderId": orderId,
       "paymentId": paymentId,
       "userId": userId,
       "paymentMethod": paymentMethod,
@@ -63,21 +47,21 @@ class OrderModel {
     };
   }
 
-  factory OrderModel.fromJson(Map<String, dynamic> json) => OrderModel(
-        orderId: json["orderId"],
-        paymentId: json["paymentId"],
-        userId: json["userId"],
-        paymentMethod: json["paymentMethod"],
-        status: json["status"],
-        address: json["address"],
-        city: json["city"],
-        date: json["date"],
-        note: json["note"],
-        tele1: json["tele1"],
-        tele2: json["tele2"],
-        pname: json["tele1"],
-        quantity: json["pname"],
-        image: json["image"],
-        price: json["price"],
-      );
+  // factory OrderModel.fromJson(Map<String, dynamic> json) => OrderModel(
+  //       orderId: json["orderId"],
+  //       paymentId: json["paymentId"],
+  //       userId: json["userId"],
+  //       paymentMethod: json["paymentMethod"],
+  //       status: json["status"],
+  //       address: json["address"],
+  //       city: json["city"],
+  //       date: json["date"],
+  //       note: json["note"],
+  //       tele1: json["tele1"],
+  //       tele2: json["tele2"],
+  //       pname: json["tele1"],
+  //       quantity: json["pname"],
+  //       image: json["image"],
+  //       price: json["price"],
+  //     );
 }

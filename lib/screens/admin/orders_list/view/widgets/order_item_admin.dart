@@ -6,30 +6,30 @@ import 'package:intl/intl.dart';
 import '../../../../../models/api_models/order_model.dart';
 import '../../../../../routes/app_route.dart';
 import '../../../../../utils/widgets/app_text.dart';
-import '../../controller/order_items_controller.dart';
+import '../../controller/order_list_controller.dart';
 
-class OrderItem extends StatelessWidget {
+class OrderItemAdmin extends StatelessWidget {
   final OrderModel order;
 
-  const OrderItem({super.key, required this.order});
+  const OrderItemAdmin({super.key, required this.order});
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.find<OrderItemsController>();
+    final controller = Get.find<OrderListController>();
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 2, horizontal: 8),
       child: Column(
         children: [
           InkWell(
             onTap: () async {
-              await Navigator.pushNamed(context, AppRoute.orderItemDetails,
+              await Navigator.pushNamed(context, AppRoute.viewOrder,
                   arguments: order);
               controller.initialize();
             },
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 8),
               child: Row(
-                
+
                 children: [
                   CachedNetworkImage(
                     imageUrl: order.image,
@@ -51,6 +51,10 @@ class OrderItem extends StatelessWidget {
                               height: 5,
                             ),
                             AppText(text: "#Order ID: ${order.orderId}"),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            AppText(text: "Status: ${order.status}"),
                           ],
                         ),
                         Column(

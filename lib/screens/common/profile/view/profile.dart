@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../utils/app_colors.dart';
+import '../../../../utils/widgets/apps_alert.dart';
 import '../controller/profile_controller.dart';
 import 'widgets/profile_form.dart';
 
@@ -49,6 +50,20 @@ class _ProfileState extends State<Profile> {
           backgroundColor: Colors.transparent,
           centerTitle: true,
           title: const Text("Profile"),
+          actions: [
+            IconButton(
+              color: Colors.red,
+              onPressed: () async {
+                final res = await AppsAlerts().openDialog(
+                    context, "Log out", "Are you sure to log out?",
+                    btnYN: true);
+                if (res) {
+                  controller.logOut(context);
+                }
+              },
+              icon: const Icon(Icons.logout),
+            )
+          ],
         ),
         body: SingleChildScrollView(
           child: Padding(

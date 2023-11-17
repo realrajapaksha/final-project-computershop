@@ -1,4 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:computershop/screens/admin/admin_dashboard/view/admin_dashboard.dart';
+import 'package:computershop/screens/users/user_home/view/user_home.dart';
 import 'package:computershop/utils/widgets/apps_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -8,6 +10,7 @@ import '../../../../models/navigate_models/register_nav_model.dart';
 import '../../../../routes/app_route.dart';
 import '../../../../services/api_services/remote_service.dart';
 import '../../../../utils/shared_values.dart';
+import '../../../admin/admin_home/view/admin_home.dart';
 
 class LoginController extends GetxController {
   final loading = false.obs;
@@ -58,20 +61,25 @@ class LoginController extends GetxController {
   routeToRegister(context, account) async {
     await Navigator.pushNamed(context, AppRoute.register,
         arguments: RegisterNavModel(account: account));
+    await AppsAlerts.closeAllDialogs(context);
     await _googleSignIn.disconnect();
   }
 
   routeToHome(context) async {
     if (SharedValues.shared.type == "Employee") {
       if (SharedValues.shared.status == "Approved") {
-        Navigator.popAndPushNamed(context, AppRoute.adminDashboard);
+        Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(builder: (context) => const AdminHome()),
+            (Route route) => false);
       } else {
         await AppsAlerts.closeAllDialogs(context);
         await AppsAlerts().openDialog(context, "Error!",
             "Your account not approved by admin. Please contact admin");
       }
     } else {
-      Navigator.popAndPushNamed(context, AppRoute.userHome);
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (context) => const UserHome()),
+          (Route route) => false);
     }
   }
 }

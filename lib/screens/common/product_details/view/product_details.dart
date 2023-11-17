@@ -245,7 +245,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                             ? AppColors.mainBlue
                             : Colors.grey,
                         title: "Buy Now",
-                        onTapped: () {
+                        onTapped: () async {
                           if (controller.product.value.quantity > 0) {
                             final model = PayProductModel(
                                 productId: widget.product.productId,
@@ -253,9 +253,10 @@ class _ProductDetailsState extends State<ProductDetails> {
                                 qty: 1,
                                 price: controller.product.value.price,
                                 image: controller.product.value.image);
-                            Navigator.pushNamed(
+                            await Navigator.pushNamed(
                                 context, AppRoute.paymentDetails,
                                 arguments: [model]);
+                            controller.initialize(widget.product);
                           }
                         })
                   ],

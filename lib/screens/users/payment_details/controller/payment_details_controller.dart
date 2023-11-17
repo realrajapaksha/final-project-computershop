@@ -1,12 +1,17 @@
 import 'dart:convert';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:computershop/models/data_models/payment_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
 
+import '../../../../models/api_models/order_model.dart';
+import '../../../../models/data_models/order_product_model.dart';
 import '../../../../models/data_models/pay_product_model.dart';
 import '../../../../models/navigate_models/payment_nav_model.dart';
 import '../../../../routes/app_route.dart';
+import '../../../../utils/shared_values.dart';
 import '../../../../utils/widgets/apps_alert.dart';
 
 class PaymentDetailsController extends GetxController {
@@ -28,6 +33,8 @@ class PaymentDetailsController extends GetxController {
 
   final total = 0.0.obs;
 
+  final db = FirebaseFirestore.instance;
+
   initialize(List<PayProductModel> navList) async {
     try {
       productList.clear();
@@ -35,6 +42,28 @@ class PaymentDetailsController extends GetxController {
         total.value = total.value + (item.price * item.qty);
         productList.add(item);
       }
+      await getProfileDetails();
+    } catch (exception) {
+      //
+    }
+  }
+
+  getProfileDetails() async {
+    try {
+      await db
+          .collection("users")
+          .doc(SharedValues.shared.email)
+          .get()
+          .then((value) {
+        if (value.exists) {
+          nameController.text = value["fullName"];
+          addressController.text = value["address"];
+          cityController.text = value["city"];
+          tele1Controller.text = value["tele1"];
+          tele2Controller.text = value["tele2"];
+          noteController.text = value["note"];
+        }
+      });
     } catch (exception) {
       //
     }
@@ -44,27 +73,19 @@ class PaymentDetailsController extends GetxController {
     try {
       bool error = true;
 
-      if (nameController.text
-          .trim()
-          .isEmpty) {
+      if (nameController.text.trim().isEmpty) {
         error = false;
         nameEmpty.value = true;
       }
-      if (addressController.text
-          .trim()
-          .isEmpty) {
+      if (addressController.text.trim().isEmpty) {
         error = false;
         addressEmpty.value = true;
       }
-      if (cityController.text
-          .trim()
-          .isEmpty) {
+      if (cityController.text.trim().isEmpty) {
         error = false;
         cityEmpty.value = true;
       }
-      if (tele1Controller.text
-          .trim()
-          .isEmpty) {
+      if (tele1Controller.text.trim().isEmpty) {
         error = false;
         tele1Empty.value = true;
       }
@@ -97,14 +118,14 @@ class PaymentDetailsController extends GetxController {
       //STEP 2: Initialize Payment Sheet
       await Stripe.instance
           .initPaymentSheet(
-        paymentSheetParameters: SetupPaymentSheetParameters(
-            intentConfiguration: IntentConfiguration(
-              mode: IntentMode(currencyCode: "LKR", amount: tot),
-            ),
-            paymentIntentClientSecret: paymentIntent!['client_secret'],
-            style: ThemeMode.dark,
-            merchantDisplayName: 'LK'),
-      )
+            paymentSheetParameters: SetupPaymentSheetParameters(
+                intentConfiguration: IntentConfiguration(
+                  mode: IntentMode(currencyCode: "LKR", amount: tot),
+                ),
+                paymentIntentClientSecret: paymentIntent!['client_secret'],
+                style: ThemeMode.dark,
+                merchantDisplayName: 'LK'),
+          )
           .then((value) {});
 
       //STEP 3: Display Payment sheet
@@ -129,7 +150,7 @@ class PaymentDetailsController extends GetxController {
         Uri.parse('https://api.stripe.com/v1/payment_intents'),
         headers: {
           'Authorization':
-          'Bearer sk_test_51NSOXNEJSo66fUeP3eSP3PDoaFlGcD3w8IwvI8guumPqSywc4PBiNym2kiR7GzT7VjQB5hUl2tAgRdS7s3LwXM2S00xAZzOLrm',
+              'Bearer sk_test_51NSOXNEJSo66fUeP3eSP3PDoaFlGcD3w8IwvI8guumPqSywc4PBiNym2kiR7GzT7VjQB5hUl2tAgRdS7s3LwXM2S00xAZzOLrm',
           'Content-Type': 'application/x-www-form-urlencoded'
         },
         body: body,
@@ -164,14 +185,71 @@ class PaymentDetailsController extends GetxController {
   saveDatabase(context) async {
     try {
       if (paymentIntent != null) {
-        print(paymentIntent!["id"]);
+        final order = OrderModel(
+            orderId: "",
+            paymentId: paymentIntent!["id"],
+            userId: SharedValues.shared.email,
+            paymentMethod: "card",
+            status: "Pending",
+            address: addressController.text.trim(),
+            city: cityController.text.trim(),
+            date: DateTime.now().millisecondsSinceEpoch,
+            note: noteController.text.trim(),
+            tele1: tele1Controller.text.trim(),
+            tele2: tele2Controller.text.trim(),
+            pname: "",
+            quantity: 0,
+            image: "",
+            price: 0);
 
-        // final model = PaymentNavModel(
-        //     paymentId: paymentIntent!["id"], order: order, itemList: itemList)
+        await db
+            .collection("orders")
+            .add(order.toFireStore())
+            .then((result) async {
+          List<OrderProductModel> itemList = [];
+          for (var item in productList) {
+            itemList.add(OrderProductModel(
+                orderId: result.id,
+                productId: item.productId,
+                quantity: item.qty,
+                date: DateTime.now().millisecondsSinceEpoch));
+          }
 
-        AppsAlerts.closeAllDialogs(context);
-        Navigator.popAndPushNamed(
-            context, AppRoute.paymentSuccess, arguments: "");
+          final paymentModel = PaymentModel(
+              paymentId: paymentIntent!["id"],
+              orderId: result.id,
+              userId: SharedValues.shared.email,
+              date: DateTime.now().millisecondsSinceEpoch);
+
+          await db
+              .collection("payment")
+              .add(paymentModel.toAddFireStore())
+              .then((value) async {
+            for (var orderItem in itemList) {
+              await db
+                  .collection("order_products")
+                  .add(orderItem.toFireStore())
+                  .then((value) async {
+                final model = PaymentNavModel(
+                    paymentId: paymentIntent!["id"],
+                    order: order,
+                    itemList: itemList);
+
+                await db.collection("cart").where("productId", isEqualTo: orderItem.productId).get().then((value) async {
+                  if(value.docs.isNotEmpty){
+                    for(var cartItem in value.docs){
+                      await db.collection("cart").doc(cartItem.id).delete();
+                    }
+                  }
+                });
+
+                AppsAlerts.closeAllDialogs(context);
+                Navigator.popAndPushNamed(context, AppRoute.paymentSuccess,
+                    arguments: model);
+              });
+            }
+          });
+        });
       }
     } catch (exception) {
       await AppsAlerts.closeAllDialogs(context);

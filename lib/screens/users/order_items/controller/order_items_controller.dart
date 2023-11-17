@@ -36,7 +36,7 @@ class OrderItemsController extends GetxController {
             for (var doc in res.docs) {
               await db
                   .collection("order_products")
-                  .where("orderId", isEqualTo: doc["orderId"])
+                  .where("orderId", isEqualTo: doc.id)
                   .get()
                   .then((orderProducts) async {
                 if (orderProducts.docs.isNotEmpty) {
@@ -49,7 +49,7 @@ class OrderItemsController extends GetxController {
                       if (value.docs.isNotEmpty) {
                         for (var product in value.docs) {
                           final model = OrderModel(
-                              orderId: doc["orderId"],
+                              orderId: doc.id,
                               paymentId: doc["paymentId"],
                               userId: doc["userId"],
                               paymentMethod: doc["paymentMethod"],

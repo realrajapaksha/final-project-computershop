@@ -5,9 +5,11 @@ import 'package:google_sign_in/google_sign_in.dart';
 
 import '../../../../models/data_models/user_model.dart';
 import '../../../../models/navigate_models/register_nav_model.dart';
-import '../../../../routes/app_route.dart';
 import '../../../../services/api_services/remote_service.dart';
 import '../../../../utils/shared_values.dart';
+import '../../../../utils/widgets/apps_alert.dart';
+import '../../../admin/admin_home/view/admin_home.dart';
+import '../../../users/user_home/view/user_home.dart';
 
 class RegisterController extends GetxController {
   final nameController = TextEditingController();
@@ -125,15 +127,48 @@ class RegisterController extends GetxController {
       if (result != false) {
         // account crated
         SharedValues.shared.setEmail(account.email);
-        SharedValues.shared.setSignedIn(true);
         SharedValues.shared.setUsername(nameController.text.trim());
-        await Navigator.popAndPushNamed(context, AppRoute.userHome);
+
+        final res = await RemoteService.checkUser(email: account.email);
+        if (res != null) {
+          if (res) {
+            routeToHome(context);
+          }
+        }else{
+          await AppsAlerts().openDialog(context, "Error!",
+              "Try again");
+        }
       } else {
         // unable to create
+        await AppsAlerts().openDialog(context, "Error!",
+            "Unable to crate account. try again");
       }
     } catch (exception) {
       // error
-      print(exception);
+      await AppsAlerts().openDialog(context, "Error!",
+          "Something went wrong");
+    }
+  }
+
+  routeToHome(context) async {
+    if (SharedValues.shared.type == "Employee") {
+      if (SharedValues.shared.status == "Approved") {
+        SharedValues.shared.setEmail(account.email);
+        SharedValues.shared.setSignedIn(true);
+        Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(builder: (context) => const AdminHome()),
+            (Route route) => false);
+      } else {
+        await AppsAlerts.closeAllDialogs(context);
+        await AppsAlerts().openDialog(context, "Error!",
+            "Your account not approved by admin. Please contact admin");
+      }
+    } else {
+      SharedValues.shared.setEmail(account.email);
+      SharedValues.shared.setSignedIn(true);
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (context) => const UserHome()),
+          (Route route) => false);
     }
   }
 }
