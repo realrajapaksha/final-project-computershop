@@ -33,15 +33,23 @@ class AddProductForm extends StatelessWidget {
                 decoration: BoxDecoration(
                     image: controller.image.value.isNotEmpty
                         ? DecorationImage(
+                            fit: BoxFit.cover,
                             image: MemoryImage(controller.image.value))
                         : null,
                     color: Colors.grey,
                     border: Border.all(
-                      width: 2,
+                        width: 2,
                         color: controller.imageEmpty.value
                             ? Colors.red
                             : Colors.transparent),
                     borderRadius: BorderRadius.circular(8)),
+                child: controller.image.value.isEmpty
+                    ? const Icon(
+                        Icons.add_photo_alternate_outlined,
+                        size: 40,
+                        color: Colors.white,
+                      )
+                    : const SizedBox(),
               ),
             ),
           ),
@@ -63,7 +71,7 @@ class AddProductForm extends StatelessWidget {
             controller: controller.descriptionController,
             isEmpty: controller.descriptionEmpty.value,
             isLargeText: true,
-            minLines: 5,
+            minLines: 4,
             action: TextInputAction.newline,
             type: TextInputType.multiline,
             onValueChanged: (val) {

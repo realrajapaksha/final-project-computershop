@@ -250,9 +250,12 @@ class SalesBoard extends StatelessWidget {
                   flex: 1,
                   child: Container(
                     padding: const EdgeInsets.symmetric(vertical: 8),
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(8)),
+                    decoration: const BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(8),
+                      ),
+                    ),
                     child: Column(
                       children: [
                         AppText(
@@ -275,9 +278,12 @@ class SalesBoard extends StatelessWidget {
                   flex: 1,
                   child: Container(
                     padding: const EdgeInsets.symmetric(vertical: 8),
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(8)),
+                    decoration: const BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(8),
+                      ),
+                    ),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -288,6 +294,93 @@ class SalesBoard extends StatelessWidget {
                         ),
                         const AppText(
                           text: "Products out of stock",
+                          fontColor: AppColors.highDeepBlue,
+                        )
+                      ],
+                    ),
+                  ),
+                )
+              ],
+            ),
+            const SizedBox(
+              height: 5,
+            ),
+            Row(
+              children: [
+                Expanded(
+                  flex: 1,
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(vertical: 8),
+                    decoration: const BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(8),
+                      ),
+                    ),
+                    child: Column(
+                      children: [
+                        AppText(
+                          text: controller.computers.value,
+                          size: 20,
+                          fontColor: AppColors.highDeepBlue,
+                        ),
+                        const AppText(
+                          text: "Computers",
+                          fontColor: AppColors.highDeepBlue,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  width: 5,
+                ),
+                Expanded(
+                  flex: 1,
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(vertical: 8),
+                    decoration: const BoxDecoration(
+                      color: Colors.white,
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        AppText(
+                          text: controller.phones.value,
+                          size: 20,
+                          fontColor: AppColors.highDeepBlue,
+                        ),
+                        const AppText(
+                          text: "Phones",
+                          fontColor: AppColors.highDeepBlue,
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  width: 5,
+                ),
+                Expanded(
+                  flex: 1,
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(vertical: 8),
+                    decoration: const BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                        bottomRight: Radius.circular(8),
+                      ),
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        AppText(
+                          text: controller.accessories.value,
+                          size: 20,
+                          fontColor: AppColors.highDeepBlue,
+                        ),
+                        const AppText(
+                          text: "Accessories",
                           fontColor: AppColors.highDeepBlue,
                         )
                       ],

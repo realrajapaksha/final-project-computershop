@@ -50,7 +50,7 @@ class ProductDetailsController extends GetxController {
           .then((value) async {
         if (value.exists) {
           product.value = ProductModel(
-              productId: value["productId"],
+              productId: value.id,
               pname: value["pname"],
               quantity: value["quantity"],
               price: value["price"],

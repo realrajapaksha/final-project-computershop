@@ -23,10 +23,14 @@ class CartItem extends StatelessWidget {
         children: [
           Row(
             children: [
-              CachedNetworkImage(
-                imageUrl: cart.image,
-                width: 50,
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: CachedNetworkImage(
+                  imageUrl: cart.image,
+                  width: 50,
+                ),
               ),
+              const SizedBox(width: 5,),
               Expanded(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,

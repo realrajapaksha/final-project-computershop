@@ -2,7 +2,7 @@ class DashboardItemModel {
   final String id;
   final String name;
   final String category;
-  final double price;
+  final int price;
   final String description;
   final int qty;
   final String image;

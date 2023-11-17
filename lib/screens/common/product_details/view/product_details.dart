@@ -71,6 +71,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                             Expanded(
                               flex: 1,
                               child: Container(
+                                padding: EdgeInsets.all(3),
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(8),
                                     border: Border.all(

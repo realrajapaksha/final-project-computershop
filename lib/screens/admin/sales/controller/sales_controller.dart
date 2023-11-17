@@ -21,6 +21,9 @@ class SalesController extends GetxController {
 
   final totalStock = "0".obs;
   final outStock = "0".obs;
+  final computers = "0".obs;
+  final phones = "0".obs;
+  final accessories = "0".obs;
 
   final customers = "0".obs;
   final employees = "0".obs;
@@ -180,6 +183,18 @@ class SalesController extends GetxController {
 
       await db.collection("products").get().then((value) {
         totalStock.value = value.docs.length.toString();
+      });
+
+      await db.collection("products").where("category", isEqualTo: "Computer").get().then((value) {
+        computers.value = value.docs.length.toString();
+      });
+
+      await db.collection("products").where("category", isEqualTo: "Phone").get().then((value) {
+        phones.value = value.docs.length.toString();
+      });
+
+      await db.collection("products").where("category", isEqualTo: "Accessories").get().then((value) {
+        accessories.value = value.docs.length.toString();
       });
     } catch (exception) {
       print(exception);

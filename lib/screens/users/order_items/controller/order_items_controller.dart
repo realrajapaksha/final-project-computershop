@@ -43,11 +43,11 @@ class OrderItemsController extends GetxController {
                   for (var item in orderProducts.docs) {
                     await db
                         .collection("products")
-                        .where("productId", isEqualTo: item["productId"])
+                        .doc( item["productId"])
                         .get()
                         .then((value) {
-                      if (value.docs.isNotEmpty) {
-                        for (var product in value.docs) {
+                      if (value.exists) {
+
                           final model = OrderModel(
                               orderId: doc.id,
                               paymentId: doc["paymentId"],
@@ -60,13 +60,12 @@ class OrderItemsController extends GetxController {
                               note: doc["note"],
                               tele1: doc["tele1"],
                               tele2: doc["tele2"],
-                              pname: product["pname"],
+                              pname: value["pname"],
                               quantity: item["quantity"],
-                              image: product["image"],
-                              price: product["price"]);
+                              image: value["image"],
+                              price: value["price"]);
 
                           orderList.add(model);
-                        }
                       }
                     });
                   }

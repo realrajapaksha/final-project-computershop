@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -131,14 +132,19 @@ class _AdminDashboardState extends State<AdminDashboard> {
                         ),
                         SizedBox(
                           height: 180,
-                          child: ListView.builder(
-                              shrinkWrap: true,
-                              scrollDirection: Axis.horizontal,
-                              itemCount: controller.computers.length,
-                              itemBuilder: (context, index) {
-                                return ItemCard(
-                                    model: controller.computers[index]);
-                              }),
+                          child: controller.computerLoad.value
+                              ? const Center(
+                                  child: CupertinoActivityIndicator(),
+                                )
+                              : ListView.builder(
+                                  shrinkWrap: true,
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: controller.computers.length,
+                                  itemBuilder: (context, index) {
+                                    return ItemCard(
+                                        model:
+                                            controller.computers.value[index]);
+                                  }),
                         ),
                         const Divider(),
                         Row(
@@ -171,14 +177,18 @@ class _AdminDashboardState extends State<AdminDashboard> {
                         ),
                         SizedBox(
                           height: 180,
-                          child: ListView.builder(
-                              shrinkWrap: true,
-                              scrollDirection: Axis.horizontal,
-                              itemCount: controller.phones.length,
-                              itemBuilder: (context, index) {
-                                return ItemCard(
-                                    model: controller.phones[index]);
-                              }),
+                          child: controller.phonesLoad.value
+                              ? const Center(
+                                  child: CupertinoActivityIndicator(),
+                                )
+                              : ListView.builder(
+                                  shrinkWrap: true,
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: controller.phones.length,
+                                  itemBuilder: (context, index) {
+                                    return ItemCard(
+                                        model: controller.phones[index]);
+                                  }),
                         ),
                         const Divider(),
                         Row(
@@ -211,14 +221,18 @@ class _AdminDashboardState extends State<AdminDashboard> {
                         ),
                         SizedBox(
                           height: 180,
-                          child: ListView.builder(
-                              shrinkWrap: true,
-                              scrollDirection: Axis.horizontal,
-                              itemCount: controller.accessories.length,
-                              itemBuilder: (context, index) {
-                                return ItemCard(
-                                    model: controller.accessories[index]);
-                              }),
+                          child: controller.accessLoad.value
+                              ? const Center(
+                                  child: CupertinoActivityIndicator(),
+                                )
+                              : ListView.builder(
+                                  shrinkWrap: true,
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: controller.accessories.length,
+                                  itemBuilder: (context, index) {
+                                    return ItemCard(
+                                        model: controller.accessories[index]);
+                                  }),
                         ),
                       ],
                     ),

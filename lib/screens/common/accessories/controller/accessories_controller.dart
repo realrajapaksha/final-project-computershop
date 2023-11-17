@@ -23,7 +23,7 @@ class AccessoriesController extends GetxController{
           id: "131124",
           name: "Bose QuietComfort® 45",
           category: "accessories",
-          price: 98999.00,
+          price: 98999,
           description: "Over-Ear Noise Cancelling Headphone. Black Color",
           qty: 10,
           image: "https://cdn.shopify.com/s/files/1/0822/2058/1183/files/Bose-QuietComfort-45-Wireless-Over-Ear-Noise-Cancelling-Headphones-Sri-Lanka-SimplyTek-2_596x_crop_center.jpg?v=1694425251"));
@@ -31,7 +31,7 @@ class AccessoriesController extends GetxController{
           id: "1332",
           name: "AirPods Pro (2nd generation)",
           category: "accessories",
-          price: 91999.00,
+          price: 91999,
           description: "Wireless Headphone",
           qty: 0,
           image: "https://cdn.shopify.com/s/files/1/0822/2058/1183/files/AIRPODS-Pro-2nd-gen-simplytek-lk-2_596x_crop_center.png?v=1694426222"));
@@ -39,7 +39,7 @@ class AccessoriesController extends GetxController{
           id: "5383",
           name: "Sony WH-1000XM5",
           category: "accessories",
-          price: 129999.00,
+          price: 129999,
           description: "Sony WH-1000XM5 Wireless Headphone",
           qty: 20,
           image: "https://cdn.shopify.com/s/files/1/0822/2058/1183/files/sony-1000xm5-simplytek-srilanka-3_596x_crop_center.jpg?v=1694425818"));

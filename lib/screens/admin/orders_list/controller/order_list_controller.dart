@@ -27,10 +27,7 @@ class OrderListController extends GetxController {
     try {
       orderList.clear();
       if (email.value.isNotEmpty) {
-        await db
-            .collection("orders")
-            .get()
-            .then((res) async {
+        await db.collection("orders").get().then((res) async {
           if (res.docs.isNotEmpty) {
             for (var doc in res.docs) {
               await db
@@ -42,30 +39,28 @@ class OrderListController extends GetxController {
                   for (var item in orderProducts.docs) {
                     await db
                         .collection("products")
-                        .where("productId", isEqualTo: item["productId"])
+                        .doc(item["productId"])
                         .get()
                         .then((value) {
-                      if (value.docs.isNotEmpty) {
-                        for (var product in value.docs) {
-                          final model = OrderModel(
-                              orderId: doc.id,
-                              paymentId: doc["paymentId"],
-                              userId: doc["userId"],
-                              paymentMethod: doc["paymentMethod"],
-                              status: doc["status"],
-                              address: doc["address"],
-                              city: doc["city"],
-                              date: doc["date"],
-                              note: doc["note"],
-                              tele1: doc["tele1"],
-                              tele2: doc["tele2"],
-                              pname: product["pname"],
-                              quantity: item["quantity"],
-                              image: product["image"],
-                              price: product["price"]);
+                      if (value.exists) {
+                        final model = OrderModel(
+                            orderId: doc.id,
+                            paymentId: doc["paymentId"],
+                            userId: doc["userId"],
+                            paymentMethod: doc["paymentMethod"],
+                            status: doc["status"],
+                            address: doc["address"],
+                            city: doc["city"],
+                            date: doc["date"],
+                            note: doc["note"],
+                            tele1: doc["tele1"],
+                            tele2: doc["tele2"],
+                            pname: value["pname"],
+                            quantity: item["quantity"],
+                            image: value["image"],
+                            price: value["price"]);
 
-                          orderList.add(model);
-                        }
+                        orderList.add(model);
                       }
                     });
                   }

@@ -42,9 +42,20 @@ class _ComputersState extends State<Computers> {
           () => SingleChildScrollView(
             child: Column(
               children: [
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 5.0, vertical: 8),
-                  child: CupertinoSearchTextField(),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 8),
+                  child: CupertinoSearchTextField(
+                    onChanged: (String search){
+                      if(search.trim().isEmpty){
+                        controller.initialize();
+                      }
+                    },
+                    onSubmitted: (String? search) {
+                      if(search != null){
+                        controller.searchComputers(search);
+                      }
+                    },
+                  ),
                 ),
                 const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 5.0, vertical: 8),
