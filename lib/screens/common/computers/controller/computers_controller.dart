@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:computershop/services/api_services/remote_service.dart';
 import 'package:get/get.dart';
 
 import '../../../../models/data_models/dashboard_item_model.dart';
@@ -49,21 +50,26 @@ class ComputerController extends GetxController {
 
   searchComputers(String search) async {
     try {
-
-      String aiResult = "Co";
+      loading.value = true;
+      final aiResult = await RemoteService.connectAI(search: search.trim());
+      if (aiResult == null) {
+        loading.value = false;
+        return;
+      }
 
       String filterString = "";
-      if(aiResult == "computer 1"){
+      if (aiResult == "computer 1") {
         filterString = "Low";
-      }else if(aiResult == "computer 2"){
+      } else if (aiResult == "computer 2") {
         filterString = "Middle";
-      }else if(aiResult == "computer 3"){
+      } else if (aiResult == "computer 3") {
         filterString = "High";
-      }else if(aiResult == "computer 4"){
+      } else if (aiResult == "computer 4") {
         filterString = "Special";
       }
 
-      if(filterString == ""){
+      if (filterString == "") {
+        loading.value = false;
         initialize();
         return;
       }
@@ -72,7 +78,7 @@ class ComputerController extends GetxController {
       await db
           .collection("products")
           .where("category", isEqualTo: "Computer")
-          .where("tag", isEqualTo: filterString)
+          .where("tags", isEqualTo: filterString)
           .get()
           .then((value) {
         if (value.docs.isNotEmpty) {
@@ -88,7 +94,9 @@ class ComputerController extends GetxController {
           }
         }
       });
+      loading.value = false;
     } catch (exception) {
+      loading.value = false;
       print(exception);
     }
   }

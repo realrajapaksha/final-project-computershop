@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 
+import '../../models/api_models/ai_result_model.dart';
 import '../../models/data_models/user_model.dart';
 import '../../utils/shared_values.dart';
 import 'api_path.dart';
@@ -80,32 +81,61 @@ class RemoteService {
     }
   }
 
-  // check user
-  // static Future<OrderAPIResponseModel?> getOrdersByCustomer(
-  //     {required String email}) async {
-  //   try {
-  //     var queryParams = <String, String>{
-  //       'email': email,
-  //     };
-  //
-  //     final url = Uri.parse(APIPath.baseAuthority + APIPath.order)
-  //         .replace(queryParameters: queryParams);
-  //
-  //     final response = await client.get(url, headers: headers).timeout(
-  //           timeOut,
-  //         );
-  //     final jsonString = utf8.decode(response.bodyBytes);
-  //     if (response.statusCode == 200) {
-  //       final apiResponse =
-  //           OrderAPIResponseModel.fromJson(jsonDecode(jsonString));
-  //       return apiResponse;
-  //     }
-  //
-  //     return null;
-  //   } catch (exception) {
-  //     return null;
-  //   }
-  // }
+  // check AI
+  static Future<String?> connectAI({required String search}) async {
+    try {
+      var queryParams = <String, String>{
+        'keyword': search,
+      };
+
+      //emulator: 10.0.2.2   localhost
+      final url = Uri.parse("http://localhost:8000/search")
+          .replace(queryParameters: queryParams);
+
+      final response = await client.get(url, headers: headers).timeout(
+            timeOut,
+          );
+      final jsonString = utf8.decode(response.bodyBytes);
+      if (response.statusCode == 200) {
+        final apiResponse = AIResultModel.fromJson(jsonDecode(jsonString));
+        return apiResponse.response;
+      } else if (response.statusCode == 404) {
+        return "";
+      }
+
+      return null;
+    } catch (exception) {
+      print(exception);
+      return null;
+    }
+  }
+
+// check user
+// static Future<OrderAPIResponseModel?> getOrdersByCustomer(
+//     {required String email}) async {
+//   try {
+//     var queryParams = <String, String>{
+//       'email': email,
+//     };
+//
+//     final url = Uri.parse(APIPath.baseAuthority + APIPath.order)
+//         .replace(queryParameters: queryParams);
+//
+//     final response = await client.get(url, headers: headers).timeout(
+//           timeOut,
+//         );
+//     final jsonString = utf8.decode(response.bodyBytes);
+//     if (response.statusCode == 200) {
+//       final apiResponse =
+//           OrderAPIResponseModel.fromJson(jsonDecode(jsonString));
+//       return apiResponse;
+//     }
+//
+//     return null;
+//   } catch (exception) {
+//     return null;
+//   }
+// }
 
 // // all farmers GET
 // static Future<FarmerResponseModel?> farmersGet(

@@ -66,7 +66,7 @@ class ComputerItem extends StatelessWidget {
                     const Spacer(),
                     Expanded(
                       child: AppText(
-                        text: "Rs. ${model.price}0",
+                        text: "Rs. ${model.price}.00",
                         fontColor: AppColors.green26,
                         weight: FontWeight.w800,
                       ),

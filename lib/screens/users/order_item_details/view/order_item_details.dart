@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -43,7 +42,7 @@ class _OrderItemDetailsState extends State<OrderItemDetails> {
       pending = true;
       accept = true;
       processing = true;
-    } else if (status == "delivery") {
+    } else if (status == "delivered") {
       pending = true;
       accept = true;
       processing = true;

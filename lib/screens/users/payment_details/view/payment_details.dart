@@ -159,7 +159,7 @@ class _PaymentDetailsState extends State<PaymentDetails> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               AppText(
-                                text: "Total Rs. ${controller.total.value}0",
+                                text: "Total Rs. ${controller.total.value}.00",
                                 size: 16,
                                 weight: FontWeight.bold,
                               ),
