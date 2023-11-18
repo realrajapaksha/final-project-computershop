@@ -42,9 +42,22 @@ class _AccessoriesState extends State<Accessories> {
           () => SingleChildScrollView(
             child: Column(
               children: [
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 5.0, vertical: 8),
-                  child: CupertinoSearchTextField(),
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 5.0, vertical: 8),
+                  child: CupertinoSearchTextField(
+                    onChanged: (String search) {
+                      if (search.trim().isEmpty) {
+                        controller.initialize();
+                        controller.filteredList.clear();
+                      }
+                    },
+                    onSubmitted: (String? search) {
+                      if (search != null) {
+                        controller.searchAccessories(search);
+                      }
+                    },
+                  ),
                 ),
                 const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 5.0, vertical: 8),
@@ -57,16 +70,27 @@ class _AccessoriesState extends State<Accessories> {
                         child: CupertinoActivityIndicator(
                         color: AppColors.deepBlue,
                       ))
-                    : GridView.count(
-                        shrinkWrap: true,
-                        childAspectRatio: .7,
-                        physics: ScrollPhysics(),
-                        crossAxisCount: 3,
-                        children:
-                            controller.accessoriesList.map<Widget>((computer) {
-                          return AccessoriesItem(model: computer);
-                        }).toList(),
-                      ),
+                    : controller.filteredList.isNotEmpty
+                        ? GridView.count(
+                            shrinkWrap: true,
+                            childAspectRatio: .7,
+                            physics: ScrollPhysics(),
+                            crossAxisCount: 3,
+                            children:
+                                controller.filteredList.map<Widget>((computer) {
+                              return AccessoriesItem(model: computer);
+                            }).toList(),
+                          )
+                        : GridView.count(
+                            shrinkWrap: true,
+                            childAspectRatio: .7,
+                            physics: ScrollPhysics(),
+                            crossAxisCount: 3,
+                            children: controller.accessoriesList
+                                .map<Widget>((computer) {
+                              return AccessoriesItem(model: computer);
+                            }).toList(),
+                          ),
               ],
             ),
           ),
