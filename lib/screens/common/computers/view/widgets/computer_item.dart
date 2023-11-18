@@ -51,6 +51,7 @@ class ComputerItem extends StatelessWidget {
                         child: CachedNetworkImage(
                           fit: BoxFit.cover,
                           imageUrl: model.image,
+                          height: 100,
                         ),
                       ),
                     ),

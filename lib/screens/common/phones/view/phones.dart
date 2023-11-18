@@ -50,6 +50,10 @@ class _PhonesState extends State<Phones> {
                       if (search.trim().isEmpty) {
                         controller.initialize();
                         controller.filteredList.clear();
+                      }else{
+                        if (search.isNotEmpty) {
+                          controller.searchPhones(search);
+                        }
                       }
                     },
                     onSubmitted: (String? search) {

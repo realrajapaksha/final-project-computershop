@@ -51,6 +51,7 @@ class ItemCard extends StatelessWidget {
                       child: CachedNetworkImage(
                         fit: BoxFit.cover,
                         imageUrl: model.image,
+                        height: 80,
                       ),
                     ),
                   ),
