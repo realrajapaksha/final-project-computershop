@@ -41,6 +41,7 @@ class ComputerController extends GetxController {
           }
         }
       });
+      computerList.shuffle();
     } catch (exception) {
       print(exception);
     }
@@ -48,14 +49,30 @@ class ComputerController extends GetxController {
 
   searchComputers(String search) async {
     try {
-      computerList.clear();
 
       String aiResult = "Co";
 
+      String filterString = "";
+      if(aiResult == "computer 1"){
+        filterString = "Low";
+      }else if(aiResult == "computer 2"){
+        filterString = "Middle";
+      }else if(aiResult == "computer 3"){
+        filterString = "High";
+      }else if(aiResult == "computer 4"){
+        filterString = "Special";
+      }
+
+      if(filterString == ""){
+        initialize();
+        return;
+      }
+
+      computerList.clear();
       await db
           .collection("products")
           .where("category", isEqualTo: "Computer")
-          .where("tag", isEqualTo: aiResult)
+          .where("tag", isEqualTo: filterString)
           .get()
           .then((value) {
         if (value.docs.isNotEmpty) {
