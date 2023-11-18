@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 
 import '../../../../models/data_models/cart_model.dart';
 import '../../../../models/data_models/product_model.dart';
+import '../../../../models/data_models/report_model.dart';
 import '../../../../models/data_models/watchlist_model.dart';
 import '../../../../models/navigate_models/product_nav_model.dart';
 import '../../../../utils/shared_values.dart';
@@ -142,8 +143,25 @@ class ProductDetailsController extends GetxController {
   }
 
   report(context) async {
-    try {} catch (exception) {
-      //
+    try {
+      final res = await AppsAlerts().openDialog(
+          context, "Report", "Do you want to report that item?",
+          btnYN: true);
+      if (res) {
+        await AppsAlerts().openLoading(context, "Reporting..");
+        final model = ReportModel(
+            productId: product.value.productId,
+            userId: SharedValues.shared.email,
+            date: DateTime.now().millisecondsSinceEpoch,
+            description: "");
+        await db
+            .collection("reports")
+            .add(model.toAddFireStore())
+            .then((value) => {});
+        await AppsAlerts.closeAllDialogs(context);
+      }
+    } catch (exception) {
+      await AppsAlerts.closeAllDialogs(context);
     }
   }
 }

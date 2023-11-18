@@ -2,6 +2,7 @@ class OrderModel {
   final String orderId;
   final String paymentId;
   final String userId;
+  final String name;
   final String paymentMethod;
   final String status;
   final String address;
@@ -10,6 +11,7 @@ class OrderModel {
   final String note;
   final String tele1;
   final String tele2;
+  final String productId;
   final String pname;
   final int quantity;
   final String image;
@@ -19,6 +21,7 @@ class OrderModel {
       {required this.orderId,
       required this.paymentId,
       required this.userId,
+        required this.name,
       required this.paymentMethod,
       required this.status,
       required this.address,
@@ -27,6 +30,7 @@ class OrderModel {
       required this.note,
       required this.tele1,
       required this.tele2,
+      required this.productId,
       required this.pname,
       required this.quantity,
       required this.image,
@@ -36,6 +40,7 @@ class OrderModel {
     return {
       "paymentId": paymentId,
       "userId": userId,
+      "name": name,
       "paymentMethod": paymentMethod,
       "status": status,
       "address": address,
@@ -47,21 +52,21 @@ class OrderModel {
     };
   }
 
-  // factory OrderModel.fromJson(Map<String, dynamic> json) => OrderModel(
-  //       orderId: json["orderId"],
-  //       paymentId: json["paymentId"],
-  //       userId: json["userId"],
-  //       paymentMethod: json["paymentMethod"],
-  //       status: json["status"],
-  //       address: json["address"],
-  //       city: json["city"],
-  //       date: json["date"],
-  //       note: json["note"],
-  //       tele1: json["tele1"],
-  //       tele2: json["tele2"],
-  //       pname: json["tele1"],
-  //       quantity: json["pname"],
-  //       image: json["image"],
-  //       price: json["price"],
-  //     );
+// factory OrderModel.fromJson(Map<String, dynamic> json) => OrderModel(
+//       orderId: json["orderId"],
+//       paymentId: json["paymentId"],
+//       userId: json["userId"],
+//       paymentMethod: json["paymentMethod"],
+//       status: json["status"],
+//       address: json["address"],
+//       city: json["city"],
+//       date: json["date"],
+//       note: json["note"],
+//       tele1: json["tele1"],
+//       tele2: json["tele2"],
+//       pname: json["tele1"],
+//       quantity: json["pname"],
+//       image: json["image"],
+//       price: json["price"],
+//     );
 }

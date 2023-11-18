@@ -111,7 +111,6 @@ class SalesController extends GetxController {
           .then((value) {
         if (value.docs.isNotEmpty) {
           for (var doc in value.docs) {
-            print(doc.id);
             itemSold.value =
                 (int.parse(itemSold.value) + doc["quantity"]).toString();
           }
@@ -134,6 +133,8 @@ class SalesController extends GetxController {
       });
       await db
           .collection("orders")
+          .where("date", isGreaterThanOrEqualTo: startDate.value)
+          .where("date", isLessThanOrEqualTo: endDate.value)
           .where("status", isEqualTo: "Pending")
           .get()
           .then((value) {
@@ -141,6 +142,8 @@ class SalesController extends GetxController {
       });
       await db
           .collection("orders")
+          .where("date", isGreaterThanOrEqualTo: startDate.value)
+          .where("date", isLessThanOrEqualTo: endDate.value)
           .where("status", isEqualTo: "Accept")
           .get()
           .then((value) {
@@ -148,6 +151,8 @@ class SalesController extends GetxController {
       });
       await db
           .collection("orders")
+          .where("date", isGreaterThanOrEqualTo: startDate.value)
+          .where("date", isLessThanOrEqualTo: endDate.value)
           .where("status", isEqualTo: "Processing")
           .get()
           .then((value) {
@@ -155,6 +160,8 @@ class SalesController extends GetxController {
       });
       await db
           .collection("orders")
+          .where("date", isGreaterThanOrEqualTo: startDate.value)
+          .where("date", isLessThanOrEqualTo: endDate.value)
           .where("status", isEqualTo: "Delivered")
           .get()
           .then((value) {
@@ -162,6 +169,8 @@ class SalesController extends GetxController {
       });
       await db
           .collection("orders")
+          .where("date", isGreaterThanOrEqualTo: startDate.value)
+          .where("date", isLessThanOrEqualTo: endDate.value)
           .where("status", isEqualTo: "Picked")
           .get()
           .then((value) {

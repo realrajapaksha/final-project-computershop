@@ -31,11 +31,15 @@ class OrderItemAdmin extends StatelessWidget {
               child: Row(
 
                 children: [
-                  CachedNetworkImage(
-                    imageUrl: order.image,
-                    width: 50,
-                    fit: BoxFit.cover,
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(8),
+                    child: CachedNetworkImage(
+                      imageUrl: order.image,
+                      width: 50,
+                      fit: BoxFit.cover,
+                    ),
                   ),
+                  const SizedBox(width: 5,),
                   Expanded(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,

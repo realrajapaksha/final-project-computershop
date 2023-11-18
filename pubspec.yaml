@@ -42,7 +42,7 @@ dependencies:
   uuid: ^3.0.7
   geolocator: ^10.1.0
   firebase_remote_config: ^4.2.3
-  url_launcher: ^6.1.11
+  url_launcher: ^6.2.1
   flutter_file_dialog: ^3.0.1
   flutter_local_notifications: ^15.1.0+1
   workmanager: ^0.5.1
@@ -66,6 +66,8 @@ dependencies:
   timeline_tile: ^2.0.0
   image_picker: ^1.0.4
   device_info_plus: ^9.1.0
+  google_fonts: ^6.1.0
+  maps_launcher: ^2.2.0
 
 dev_dependencies:
   flutter_test:

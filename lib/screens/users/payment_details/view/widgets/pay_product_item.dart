@@ -21,44 +21,51 @@ class PayProductItem extends StatelessWidget {
       child: Row(
         children: [
           Expanded(
-              flex: 1,
+            flex: 1,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(8),
               child: Hero(
                 tag: product.image,
                 child: CachedNetworkImage(
                   imageUrl: product.image,
                   width: 50,
                   height: 50,
+                  fit: BoxFit.cover,
                 ),
-              )),
+              ),
+            ),
+          ),
           const SizedBox(
             width: 10,
           ),
           Expanded(
-              flex: 4,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  AppText(
-                    text: product.pname,
-                    weight: FontWeight.w900,
-                    size: 15,
-                  ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  AppText(
-                    text: "Rs. ${product.price}.00",
-                    size: 13,
-                  ),
-                ],
-              )),
+            flex: 4,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                AppText(
+                  text: product.pname,
+                  weight: FontWeight.w900,
+                  size: 15,
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                AppText(
+                  text: "Rs. ${product.price}.00",
+                  size: 13,
+                ),
+              ],
+            ),
+          ),
           Expanded(
-              flex: 1,
-              child: AppText(
-                text: "x${product.qty}",
-                align: TextAlign.end,
-                size: 14,
-              )),
+            flex: 1,
+            child: AppText(
+              text: "x${product.buyUnits}",
+              align: TextAlign.end,
+              size: 14,
+            ),
+          ),
         ],
       ),
     );

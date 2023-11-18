@@ -8,10 +8,13 @@ import '../models/navigate_models/register_nav_model.dart';
 import '../screens/admin/add_item/view/add_item.dart';
 import '../screens/admin/admin_dashboard/view/admin_dashboard.dart';
 import '../screens/admin/admin_home/view/admin_home.dart';
+import '../screens/admin/chat_list/view/chat_list.dart';
 import '../screens/admin/complains/view/complains.dart';
+import '../screens/admin/update_item/view/update_item.dart';
 import '../screens/admin/view_complain/view/view_complain.dart';
 import '../screens/admin/view_order/view/view_order.dart';
 import '../screens/common/accessories/view/accessories.dart';
+import '../screens/common/chat/view/chat.dart';
 import '../screens/common/computers/view/conputers.dart';
 import '../screens/common/login/view/login.dart';
 import '../screens/common/phones/view/phones.dart';
@@ -45,6 +48,8 @@ class AppRoute {
 
   static const String profile = 'profile';
 
+  static const String chat = 'chat';
+
   /// user
   static const String userHome = 'user_home';
   static const String userDashboard = 'user_dashboard';
@@ -64,10 +69,12 @@ class AppRoute {
   static const String adminHome = 'admin_home';
   static const String adminDashboard = 'admin_dashboard';
   static const String addItem = 'add_item';
+  static const String updateItem = 'update_item';
   static const String complains = 'complains';
   static const String ordersList = 'orders_list';
   static const String viewComplain = 'view_complain';
   static const String viewOrder = 'view_order';
+  static const String chatList = 'chat_list';
 }
 
 Route<dynamic> controller(RouteSettings routeSettings) {
@@ -129,6 +136,18 @@ Route<dynamic> controller(RouteSettings routeSettings) {
     case AppRoute.profile:
       return PageRouteBuilder(
         pageBuilder: (_, __, ___) => const Profile(),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          return PageAnimation.transition(
+              context, animation, secondaryAnimation, child);
+        },
+      );
+
+    case AppRoute.chat:
+      final fromMail = routeSettings.arguments as String?;
+      return PageRouteBuilder(
+        pageBuilder: (_, __, ___) => Chat(
+          fromMail: fromMail,
+        ),
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
           return PageAnimation.transition(
               context, animation, secondaryAnimation, child);
@@ -249,6 +268,16 @@ Route<dynamic> controller(RouteSettings routeSettings) {
         },
       );
 
+    case AppRoute.updateItem:
+      final productId = routeSettings.arguments as String;
+      return PageRouteBuilder(
+        pageBuilder: (_, __, ___) => UpdateItem(productId: productId),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          return PageAnimation.transition(
+              context, animation, secondaryAnimation, child);
+        },
+      );
+
     case AppRoute.complains:
       return PageRouteBuilder(
         pageBuilder: (_, __, ___) => const Complains(),
@@ -271,6 +300,15 @@ Route<dynamic> controller(RouteSettings routeSettings) {
       final order = routeSettings.arguments as OrderModel;
       return PageRouteBuilder(
         pageBuilder: (_, __, ___) => ViewOrder(order: order),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          return PageAnimation.transition(
+              context, animation, secondaryAnimation, child);
+        },
+      );
+
+    case AppRoute.chatList:
+      return PageRouteBuilder(
+        pageBuilder: (_, __, ___) => const ChatList(),
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
           return PageAnimation.transition(
               context, animation, secondaryAnimation, child);

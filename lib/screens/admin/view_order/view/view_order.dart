@@ -63,10 +63,8 @@ class _ViewOrderState extends State<ViewOrder> {
             children: [
               Align(
                 alignment: Alignment.center,
-                child: Container(
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(8)),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(8),
                   child: Hero(
                     tag: widget.order.image,
                     child: CachedNetworkImage(
@@ -77,7 +75,7 @@ class _ViewOrderState extends State<ViewOrder> {
                 ),
               ),
               Container(
-                margin: const EdgeInsets.symmetric(vertical: 20),
+                margin: const EdgeInsets.only(top: 15),
                 padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 8),
                 decoration: BoxDecoration(
                   border: Border.all(color: Colors.white, width: 2),
@@ -96,6 +94,10 @@ class _ViewOrderState extends State<ViewOrder> {
                           ),
                           AppText(
                             text: "Order ID",
+                            size: 14,
+                          ),
+                          AppText(
+                            text: "Payment ID",
                             size: 14,
                           ),
                           AppText(
@@ -123,6 +125,10 @@ class _ViewOrderState extends State<ViewOrder> {
                             size: 14,
                           ),
                           AppText(
+                            text: ": ${widget.order.paymentId}",
+                            size: 14,
+                          ),
+                          AppText(
                             text:
                                 ": ${DateFormat("yyyy-MM-dd").format(DateTime.fromMillisecondsSinceEpoch(widget.order.date))}",
                             size: 14,
@@ -137,6 +143,81 @@ class _ViewOrderState extends State<ViewOrder> {
                     ),
                   ],
                 ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 8),
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.white, width: 2),
+                  color: Colors.transparent,
+                ),
+                child: Row(
+                  children: [
+                    const Expanded(
+                      flex: 1,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          AppText(
+                            text: "Name",
+                            size: 14,
+                          ),
+                          AppText(
+                            text: "Address",
+                            size: 14,
+                          ),
+                          AppText(
+                            text: "Pay method",
+                            size: 14,
+                          ),
+                          AppText(
+                            text: "Telephone",
+                            size: 14,
+                          ),
+                          AppText(
+                            text: "Note",
+                            size: 14,
+                          ),
+                        ],
+                      ),
+                    ),
+                    Expanded(
+                      flex: 3,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          AppText(
+                            text: ": ${widget.order.name}",
+                            size: 14,
+                          ),
+                          AppText(
+                            text:
+                                ": ${widget.order.address}, ${widget.order.city}",
+                            size: 14,
+                          ),
+                          AppText(
+                            text: ": ${widget.order.paymentMethod}",
+                            size: 14,
+                          ),
+                          AppText(
+                            text:
+                                ": ${widget.order.tele1}, ${widget.order.tele2}",
+                            size: 14,
+                          ),
+                          AppText(
+                            text: ": ${widget.order.note}",
+                            size: 14,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(
+                height: 10,
               ),
               const AppText(text: "Change Order Status"),
               const SizedBox(

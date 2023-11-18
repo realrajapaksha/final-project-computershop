@@ -30,7 +30,9 @@ class _AdminMenuState extends State<AdminMenu> {
             child: Column(
               children: [
                 InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.pushNamed(context, AppRoute.chatList);
+                  },
                   child: Container(
                     padding:
                         const EdgeInsets.symmetric(horizontal: 5, vertical: 8),
@@ -55,7 +57,9 @@ class _AdminMenuState extends State<AdminMenu> {
                   height: 2,
                 ),
                 InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.pushNamed(context, AppRoute.complains);
+                  },
                   child: Container(
                     padding:
                         const EdgeInsets.symmetric(horizontal: 5, vertical: 8),
@@ -65,7 +69,7 @@ class _AdminMenuState extends State<AdminMenu> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         AppText(
-                          text: "Customer Support",
+                          text: "Complains",
                           size: 14,
                         ),
                         Icon(

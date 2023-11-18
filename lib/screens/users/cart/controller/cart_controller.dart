@@ -1,8 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../models/data_models/cart_model.dart';
+import '../../../../models/data_models/pay_product_model.dart';
+import '../../../../routes/app_route.dart';
 import '../../../../utils/shared_values.dart';
+import '../../../../utils/widgets/apps_alert.dart';
 
 class CartController extends GetxController {
   final cardList = <CartModel>[].obs;
@@ -67,6 +71,33 @@ class CartController extends GetxController {
       });
     } catch (exception) {
       initialize();
+    }
+  }
+
+  checkOut(context) async {
+    try {
+      List<PayProductModel> productList = [];
+      for (var item in cardList) {
+        if (item.aunits > 0) {
+          productList.add(PayProductModel(
+              productId: item.productId,
+              pname: item.pname,
+              image: item.image,
+              availableUnits: item.aunits,
+              buyUnits: 1,
+              price: item.price));
+        }
+      }
+      if (productList.isNotEmpty) {
+        await Navigator.pushNamed(context, AppRoute.paymentDetails,
+            arguments: productList);
+        initialize();
+      } else {
+        await AppsAlerts()
+            .openDialog(context, "Error!", "These products are out of stocks");
+      }
+    } catch (exception) {
+      //
     }
   }
 }

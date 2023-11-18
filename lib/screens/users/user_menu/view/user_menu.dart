@@ -57,7 +57,9 @@ class _UserMenuState extends State<UserMenu> {
                   height: 2,
                 ),
                 InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.pushNamed(context, AppRoute.chat);
+                  },
                   child: Container(
                     padding:
                         const EdgeInsets.symmetric(horizontal: 5, vertical: 8),
@@ -82,7 +84,9 @@ class _UserMenuState extends State<UserMenu> {
                   height: 2,
                 ),
                 InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.pushNamed(context, AppRoute.contactSupport);
+                  },
                   child: Container(
                     padding:
                         const EdgeInsets.symmetric(horizontal: 5, vertical: 8),

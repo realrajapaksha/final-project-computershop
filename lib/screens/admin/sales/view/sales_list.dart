@@ -46,7 +46,13 @@ class _SalesState extends State<Sales> {
       if (from) {
         controller.startDate.value = newDate.millisecondsSinceEpoch;
       } else {
-        controller.endDate.value = newDate.millisecondsSinceEpoch;
+        final today = DateTime.now();
+        if (DateTime(newDate.year, newDate.month, newDate.day) ==
+            DateTime(today.year, today.month, today.day)) {
+          controller.endDate.value = today.millisecondsSinceEpoch;
+        } else {
+          controller.endDate.value = newDate.millisecondsSinceEpoch;
+        }
       }
     }
 

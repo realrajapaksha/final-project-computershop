@@ -48,7 +48,10 @@ class _ProductDetailsState extends State<ProductDetails> {
           actions: [
             SharedValues.shared.type == "Employee"
                 ? IconButton(
-                    onPressed: () {},
+                    onPressed: () async {
+                      await Navigator.pushNamed(context, AppRoute.updateItem, arguments: widget.product.productId);
+                      controller.initialize(widget.product);
+                    },
                     splashRadius: 20,
                     color: AppColors.deepBlue,
                     icon: const Icon(Icons.edit_document))
@@ -289,9 +292,11 @@ class _ProductDetailsState extends State<ProductDetails> {
                                 final model = PayProductModel(
                                     productId: widget.product.productId,
                                     pname: controller.product.value.pname,
-                                    qty: 1,
+                                    availableUnits:
+                                        controller.product.value.quantity,
                                     price: controller.product.value.price,
-                                    image: controller.product.value.image);
+                                    image: controller.product.value.image,
+                                    buyUnits: 1);
                                 await Navigator.pushNamed(
                                     context, AppRoute.paymentDetails,
                                     arguments: [model]);

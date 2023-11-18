@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:computershop/models/data_models/payment_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
@@ -9,6 +8,7 @@ import 'package:get/get.dart';
 import '../../../../models/api_models/order_model.dart';
 import '../../../../models/data_models/order_product_model.dart';
 import '../../../../models/data_models/pay_product_model.dart';
+import '../../../../models/data_models/payment_model.dart';
 import '../../../../models/navigate_models/payment_nav_model.dart';
 import '../../../../routes/app_route.dart';
 import '../../../../utils/shared_values.dart';
@@ -31,7 +31,7 @@ class PaymentDetailsController extends GetxController {
 
   final productList = <PayProductModel>[].obs;
 
-  final total = 0.0.obs;
+  final total = 0.obs;
 
   final db = FirebaseFirestore.instance;
 
@@ -39,7 +39,7 @@ class PaymentDetailsController extends GetxController {
     try {
       productList.clear();
       for (var item in navList) {
-        total.value = total.value + (item.price * item.qty);
+        total.value = total.value + (item.price * item.buyUnits);
         productList.add(item);
       }
       await getProfileDetails();
@@ -189,6 +189,7 @@ class PaymentDetailsController extends GetxController {
             orderId: "",
             paymentId: paymentIntent!["id"],
             userId: SharedValues.shared.email,
+            name: nameController.text.trim(),
             paymentMethod: "card",
             status: "Pending",
             address: addressController.text.trim(),
@@ -200,20 +201,19 @@ class PaymentDetailsController extends GetxController {
             pname: "",
             quantity: 0,
             image: "",
-            price: 0);
+            price: 0,
+            productId: '');
 
         await db
             .collection("orders")
             .add(order.toFireStore())
             .then((result) async {
           List<OrderProductModel> itemList = [];
-          int totalPrice = 0;
           for (var item in productList) {
-            totalPrice = totalPrice + item.price;
             itemList.add(OrderProductModel(
                 orderId: result.id,
                 productId: item.productId,
-                quantity: item.qty,
+                quantity: item.buyUnits,
                 date: DateTime.now().millisecondsSinceEpoch));
           }
 
@@ -222,23 +222,24 @@ class PaymentDetailsController extends GetxController {
               orderId: result.id,
               userId: SharedValues.shared.email,
               date: DateTime.now().millisecondsSinceEpoch,
-              total: totalPrice);
+              total: total.value);
 
           await db
               .collection("payment")
               .doc(paymentIntent!["id"])
               .set(paymentModel.toAddFireStore())
               .then((value) async {
+            final model = PaymentNavModel(
+                paymentId: paymentIntent!["id"],
+                total: total.value,
+                order: order,
+                itemList: itemList);
+
             for (var orderItem in itemList) {
               await db
                   .collection("order_products")
                   .add(orderItem.toFireStore())
                   .then((value) async {
-                final model = PaymentNavModel(
-                    paymentId: paymentIntent!["id"],
-                    order: order,
-                    itemList: itemList);
-
                 await db.collection("products").doc(orderItem.productId).update(
                     {"quantity": FieldValue.increment(-orderItem.quantity)});
 
@@ -253,12 +254,11 @@ class PaymentDetailsController extends GetxController {
                     }
                   }
                 });
-
-                AppsAlerts.closeAllDialogs(context);
-                Navigator.popAndPushNamed(context, AppRoute.paymentSuccess,
-                    arguments: model);
               });
             }
+            AppsAlerts.closeAllDialogs(context);
+            Navigator.popAndPushNamed(context, AppRoute.paymentSuccess,
+                arguments: model);
           });
         });
       }

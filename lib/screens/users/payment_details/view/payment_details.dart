@@ -92,7 +92,7 @@ class _PaymentDetailsState extends State<PaymentDetails> {
                                 controller.nameEmpty.value = val;
                               }),
                           const SizedBox(
-                            height: 5,
+                            height: 8,
                           ),
                           AppTextField(
                               labelText: "Address",
@@ -102,7 +102,7 @@ class _PaymentDetailsState extends State<PaymentDetails> {
                                 controller.addressEmpty.value = val;
                               }),
                           const SizedBox(
-                            height: 5,
+                            height: 8,
                           ),
                           AppTextField(
                               labelText: "City",
@@ -112,7 +112,7 @@ class _PaymentDetailsState extends State<PaymentDetails> {
                                 controller.cityEmpty.value = val;
                               }),
                           const SizedBox(
-                            height: 5,
+                            height: 8,
                           ),
                           AppTextField(
                               labelText: "Telephone 1",
@@ -122,14 +122,14 @@ class _PaymentDetailsState extends State<PaymentDetails> {
                                 controller.tele1Empty.value = val;
                               }),
                           const SizedBox(
-                            height: 5,
+                            height: 8,
                           ),
                           AppTextField(
                               labelText: "Telephone 2",
                               controller: controller.tele2Controller,
                               onValueChanged: (val) {}),
                           const SizedBox(
-                            height: 5,
+                            height: 8,
                           ),
                           AppTextField(
                               labelText: "Note",

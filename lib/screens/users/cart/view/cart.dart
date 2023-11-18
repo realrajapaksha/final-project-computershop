@@ -55,7 +55,10 @@ class _CartState extends State<Cart> {
               actions: [
                 controller.cardList.isNotEmpty
                     ? TextButton(
-                        onPressed: () {}, child: const Text("Checkout"))
+                        onPressed: () {
+                          controller.checkOut(context);
+                        },
+                        child: const Text("Checkout"))
                     : const SizedBox()
               ],
             ),
