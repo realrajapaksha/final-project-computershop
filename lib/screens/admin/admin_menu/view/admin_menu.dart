@@ -80,6 +80,33 @@ class _AdminMenuState extends State<AdminMenu> {
                     ),
                   ),
                 ),
+                const SizedBox(
+                  height: 2,
+                ),
+                InkWell(
+                  onTap: () {
+                    Navigator.pushNamed(context, AppRoute.approve);
+                  },
+                  child: Container(
+                    padding:
+                    const EdgeInsets.symmetric(horizontal: 5, vertical: 8),
+                    decoration: BoxDecoration(
+                        border: Border.all(color: Colors.white70)),
+                    child: const Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        AppText(
+                          text: "Pending Employee Approval",
+                          size: 14,
+                        ),
+                        Icon(
+                          Icons.arrow_circle_right_outlined,
+                          color: Colors.white70,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
               ],
             ),
           ),

@@ -10,6 +10,7 @@ import '../screens/admin/admin_dashboard/view/admin_dashboard.dart';
 import '../screens/admin/admin_home/view/admin_home.dart';
 import '../screens/admin/chat_list/view/chat_list.dart';
 import '../screens/admin/complains/view/complains.dart';
+import '../screens/admin/employee_approval/view/employee_approval.dart';
 import '../screens/admin/update_item/view/update_item.dart';
 import '../screens/admin/view_complain/view/view_complain.dart';
 import '../screens/admin/view_order/view/view_order.dart';
@@ -75,6 +76,7 @@ class AppRoute {
   static const String viewComplain = 'view_complain';
   static const String viewOrder = 'view_order';
   static const String chatList = 'chat_list';
+  static const String approve = 'approve';
 }
 
 Route<dynamic> controller(RouteSettings routeSettings) {
@@ -290,6 +292,15 @@ Route<dynamic> controller(RouteSettings routeSettings) {
     case AppRoute.viewComplain:
       return PageRouteBuilder(
         pageBuilder: (_, __, ___) => const ViewComplain(),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          return PageAnimation.transition(
+              context, animation, secondaryAnimation, child);
+        },
+      );
+
+    case AppRoute.approve:
+      return PageRouteBuilder(
+        pageBuilder: (_, __, ___) => const EmployeeApproval(),
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
           return PageAnimation.transition(
               context, animation, secondaryAnimation, child);
