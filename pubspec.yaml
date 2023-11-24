@@ -41,7 +41,6 @@ dependencies:
   flutter_launcher_icons: ^0.13.1
   uuid: ^3.0.7
   geolocator: ^10.1.0
-  firebase_remote_config: ^4.2.3
   url_launcher: ^6.2.1
   flutter_file_dialog: ^3.0.1
   flutter_local_notifications: ^15.1.0+1

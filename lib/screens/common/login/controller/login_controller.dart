@@ -17,6 +17,8 @@ class LoginController extends GetxController {
   final db = FirebaseFirestore.instance;
 
   final GoogleSignIn _googleSignIn = GoogleSignIn(
+    clientId:
+        "505172388074-bia62jfsmbno7j8dg19oe9p2jh7tv5gl.apps.googleusercontent.com",
     scopes: ['email', 'profile'],
   );
 

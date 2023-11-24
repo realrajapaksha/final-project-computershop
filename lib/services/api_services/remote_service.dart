@@ -89,7 +89,7 @@ class RemoteService {
       };
 
       //emulator: 10.0.2.2   localhost
-      final url = Uri.parse("http://localhost:8000/search")
+      final url = Uri.parse("https://daring-gnu-daily.ngrok-free.app/search")
           .replace(queryParameters: queryParams);
 
       final response = await client.get(url, headers: headers).timeout(

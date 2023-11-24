@@ -30,56 +30,54 @@ class _ComputersState extends State<Computers> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          elevation: 0,
-          backgroundColor: Colors.transparent,
-          centerTitle: true,
-          title: const Text("Computers"),
-        ),
-        body: Obx(
-          () => SingleChildScrollView(
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 8),
-                  child: CupertinoSearchTextField(
-                    onChanged: (String search){
-                      if(search.trim().isEmpty){
-                        controller.initialize();
-                      }
-                    },
-                    onSubmitted: (String? search) {
-                      if(search != null){
-                        controller.searchComputers(search);
-                      }
-                    },
-                  ),
+    return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        centerTitle: true,
+        title: const Text("Computers"),
+      ),
+      body: Obx(
+        () => SingleChildScrollView(
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 8),
+                child: CupertinoSearchTextField(
+                  onChanged: (String search){
+                    if(search.trim().isEmpty){
+                      controller.initialize();
+                    }
+                  },
+                  onSubmitted: (String? search) {
+                    if(search != null){
+                      controller.searchComputers(search);
+                    }
+                  },
                 ),
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 5.0, vertical: 8),
-                  child: Row(
-                    children: [],
-                  ),
+              ),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 5.0, vertical: 8),
+                child: Row(
+                  children: [],
                 ),
-                controller.loading.value
-                    ? const Center(
-                        child: CupertinoActivityIndicator(
-                        color: AppColors.deepBlue,
-                      ))
-                    : GridView.count(
-                        shrinkWrap: true,
-                        childAspectRatio: .7,
-                        physics: ScrollPhysics(),
-                        crossAxisCount: 3,
-                        children:
-                            controller.computerList.map<Widget>((computer) {
-                          return ComputerItem(model: computer);
-                        }).toList(),
-                      ),
-              ],
-            ),
+              ),
+              controller.loading.value
+                  ? const Center(
+                      child: CupertinoActivityIndicator(
+                      color: AppColors.deepBlue,
+                    ))
+                  : GridView.count(
+                      shrinkWrap: true,
+                      childAspectRatio: .7,
+                      physics: ScrollPhysics(),
+                      crossAxisCount: 3,
+                      children:
+                          controller.computerList.map<Widget>((computer) {
+                        return ComputerItem(model: computer);
+                      }).toList(),
+                    ),
+            ],
           ),
         ),
       ),

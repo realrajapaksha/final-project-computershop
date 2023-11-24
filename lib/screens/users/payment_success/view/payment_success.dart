@@ -68,6 +68,9 @@ class _PaymentSuccessState extends State<PaymentSuccess> {
                 )
               ],
             ),
+            const SizedBox(
+              height: 20,
+            ),
           ],
         ),
       ),

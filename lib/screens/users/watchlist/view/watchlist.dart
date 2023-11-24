@@ -30,49 +30,47 @@ class _WatchListState extends State<WatchList> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [
-                AppColors.highDeepBlue,
-                AppColors.deepBlue,
-                AppColors.lowDeepBlue
-              ]),
-        ),
-        child: Scaffold(
+    return Container(
+      decoration: const BoxDecoration(
+        gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              AppColors.highDeepBlue,
+              AppColors.deepBlue,
+              AppColors.lowDeepBlue
+            ]),
+      ),
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        appBar: AppBar(
+          elevation: 0,
           backgroundColor: Colors.transparent,
-          appBar: AppBar(
-            elevation: 0,
-            backgroundColor: Colors.transparent,
-            centerTitle: true,
-            foregroundColor: Colors.white,
-            title: const Text("Watchlist"),
-          ),
-          body: Obx(
-            () => SingleChildScrollView(
-              child: Column(
-                children: [
-                  controller.loading.value
-                      ? const Center(
-                          child: CupertinoActivityIndicator(
-                            color: Colors.white,
-                            radius: 15,
-                          ),
-                        )
-                      : ListView.builder(
-                          shrinkWrap: true,
-                          itemCount: controller.watchList.length,
-                          physics: const ScrollPhysics(),
-                          itemBuilder: (context, index) {
-                            return WatchlistItem(
-                              watchItem: controller.watchList[index],
-                            );
-                          })
-                ],
-              ),
+          centerTitle: true,
+          foregroundColor: Colors.white,
+          title: const Text("Watchlist"),
+        ),
+        body: Obx(
+          () => SingleChildScrollView(
+            child: Column(
+              children: [
+                controller.loading.value
+                    ? const Center(
+                        child: CupertinoActivityIndicator(
+                          color: Colors.white,
+                          radius: 15,
+                        ),
+                      )
+                    : ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: controller.watchList.length,
+                        physics: const ScrollPhysics(),
+                        itemBuilder: (context, index) {
+                          return WatchlistItem(
+                            watchItem: controller.watchList[index],
+                          );
+                        })
+              ],
             ),
           ),
         ),
