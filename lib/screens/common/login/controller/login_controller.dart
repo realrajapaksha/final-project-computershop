@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -17,8 +19,8 @@ class LoginController extends GetxController {
   final db = FirebaseFirestore.instance;
 
   final GoogleSignIn _googleSignIn = GoogleSignIn(
-    clientId:
-        "505172388074-bia62jfsmbno7j8dg19oe9p2jh7tv5gl.apps.googleusercontent.com",
+    clientId: "505172388074-k31gd44svc7nuq524knvemqgqtre445l.apps.googleusercontent.com"
+    ,
     scopes: ['email', 'profile'],
   );
 
@@ -34,6 +36,9 @@ class LoginController extends GetxController {
       }
       loading.value = false;
     } catch (exception) {
+      ScaffoldMessenger.of(context).showSnackBar( SnackBar(
+        content: Text(exception.toString()),
+      ));
       loading.value = false;
     }
   }
@@ -57,6 +62,9 @@ class LoginController extends GetxController {
         await _googleSignIn.disconnect();
       }
     } catch (exception) {
+      ScaffoldMessenger.of(context).showSnackBar( SnackBar(
+        content: Text(exception.toString()),
+      ));
       await AppsAlerts.closeAllDialogs(context);
     }
   }

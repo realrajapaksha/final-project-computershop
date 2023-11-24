@@ -12,7 +12,20 @@
           "package_name": "com.esoft.computershop"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "505172388074-q03r4tcb4lbifga8qrkeo269cvrrrhbk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.esoft.computershop",
+            "certificate_hash": "f32c3221e2e32d77c1877c899b337f89c3d4b0f7"
+          }
+        },
+        {
+          "client_id": "505172388074-k31gd44svc7nuq524knvemqgqtre445l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyCFAqzWQAHDyahQ-Sy4-WsPXnIqR2Se5-U"
@@ -20,7 +33,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "505172388074-k31gd44svc7nuq524knvemqgqtre445l.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "505172388074-bia62jfsmbno7j8dg19oe9p2jh7tv5gl.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.esoft.computershop"
+              }
+            }
+          ]
         }
       }
     }
