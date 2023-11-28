@@ -94,6 +94,7 @@ class ComputerController extends GetxController {
           }
         }
       });
+      computerList.shuffle();
       loading.value = false;
     } catch (exception) {
       loading.value = false;
