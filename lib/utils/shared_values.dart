@@ -1,8 +1,5 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
-
-import 'enums.dart';
-
 abstract class SharedKeys {
   static const String signedIn = 'signedIn';
 
