@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../utils/app_colors.dart';
+import '../../../../utils/widgets/app_text.dart';
 import '../controller/computers_controller.dart';
 import 'widgets/computer_item.dart';
 
@@ -42,24 +43,97 @@ class _ComputersState extends State<Computers> {
           child: Column(
             children: [
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 8),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 5.0, vertical: 8),
                 child: CupertinoSearchTextField(
-                  onChanged: (String search){
-                    if(search.trim().isEmpty){
+                  onChanged: (String search) {
+                    if (search.trim().isEmpty) {
                       controller.initialize();
                     }
                   },
                   onSubmitted: (String? search) {
-                    if(search != null){
+                    if (search != null) {
                       controller.searchComputers(search);
                     }
                   },
                 ),
               ),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 5.0, vertical: 8),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 5.0, vertical: 8),
                 child: Row(
-                  children: [],
+                  children: [
+                    const Expanded(
+                      flex: 1,
+                      child: AppText(
+                        text: "Sort By :",
+                        fontColor: AppColors.black,
+                      ),
+                    ),
+                    Expanded(
+                      flex: 2,
+                      child: InkWell(
+                        onTap: () {
+                          if (controller.priceSort.value == 0) {
+                            controller.priceSort.value = 1;
+                          } else if (controller.priceSort.value == 1) {
+                            controller.priceSort.value = 2;
+                          } else {
+                            controller.priceSort.value = 0;
+                          }
+                          controller.sortPriceList();
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(vertical: 3),
+                          color: controller.priceSort.value == 0
+                              ? Colors.transparent
+                              : controller.priceSort.value == 1
+                                  ? Colors.green
+                                  : Colors.orangeAccent,
+                          child: AppText(
+                            text: "Price",
+                            align: TextAlign.center,
+                            fontColor: controller.priceSort.value == 0
+                                ? Colors.black
+                                : AppColors.white,
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 5,
+                    ),
+                    Expanded(
+                      flex: 2,
+                      child: InkWell(
+                        onTap: () {
+                          if (controller.nameSort.value == 0) {
+                            controller.nameSort.value = 1;
+                          } else if (controller.nameSort.value == 1) {
+                            controller.nameSort.value = 2;
+                          } else {
+                            controller.nameSort.value = 0;
+                          }
+                          controller.sortNameList();
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(vertical: 3),
+                          color: controller.nameSort.value == 0
+                              ? Colors.transparent
+                              : controller.nameSort.value == 1
+                                  ? Colors.green
+                                  : Colors.orangeAccent,
+                          child: AppText(
+                            text: "A-Z",
+                            align: TextAlign.center,
+                            fontColor: controller.nameSort.value == 0
+                                ? Colors.black
+                                : AppColors.white,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
               controller.loading.value
@@ -70,10 +144,9 @@ class _ComputersState extends State<Computers> {
                   : GridView.count(
                       shrinkWrap: true,
                       childAspectRatio: .7,
-                      physics: ScrollPhysics(),
+                      physics: const ScrollPhysics(),
                       crossAxisCount: 3,
-                      children:
-                          controller.computerList.map<Widget>((computer) {
+                      children: controller.computerList.map<Widget>((computer) {
                         return ComputerItem(model: computer);
                       }).toList(),
                     ),

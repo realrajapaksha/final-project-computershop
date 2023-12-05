@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 import '../../../../models/api_models/order_model.dart';
 import '../../../../models/data_models/order_product_model.dart';
@@ -11,6 +12,8 @@ import '../../../../models/data_models/pay_product_model.dart';
 import '../../../../models/data_models/payment_model.dart';
 import '../../../../models/navigate_models/payment_nav_model.dart';
 import '../../../../routes/app_route.dart';
+import '../../../../services/other_services/email_service.dart';
+import '../../../../services/other_services/fcm_send_notification.dart';
 import '../../../../utils/shared_values.dart';
 import '../../../../utils/widgets/apps_alert.dart';
 
@@ -256,6 +259,20 @@ class PaymentDetailsController extends GetxController {
                 });
               });
             }
+
+            await FCMSendNotification.sendTopicNotification("Employee",
+                "New order placed.", "You have a new order to deliver");
+            await EmailService().sendOrderStatusEmail(
+                model.order.name,
+                paymentModel.orderId,
+                DateFormat("yyyy-MM-dd hh-mm").format(
+                    DateTime.fromMillisecondsSinceEpoch(model.order.date)),
+                model.order.name,
+                model.order.address,
+                model.paymentId,
+                "Rs.${model.total}",
+                "Pending",
+                model.order.userId);
             AppsAlerts.closeAllDialogs(context);
             Navigator.popAndPushNamed(context, AppRoute.paymentSuccess,
                 arguments: model);

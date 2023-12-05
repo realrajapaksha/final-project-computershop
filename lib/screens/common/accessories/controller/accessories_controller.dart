@@ -50,7 +50,7 @@ class AccessoriesController extends GetxController {
   searchAccessories(String search) async {
     try {
       filteredList.value =
-          accessoriesList.where((p0) => p0.name.startsWith(search)).toList();
+          accessoriesList.where((p0) => p0.name.toLowerCase().startsWith(search.toLowerCase())).toList();
     } catch (exception) {
       print(exception);
     }

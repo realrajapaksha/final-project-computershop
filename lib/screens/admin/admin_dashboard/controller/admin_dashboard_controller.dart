@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 
 import '../../../../models/data_models/dashboard_item_model.dart';
+import '../../../../services/other_services/fcm_notification_service.dart';
 import '../../../../utils/shared_values.dart';
 
 class AdminDashboardController extends GetxController {
@@ -21,6 +22,8 @@ class AdminDashboardController extends GetxController {
     getComputers();
     getPhones();
     getAccessories();
+
+    FCMService().initialize();
   }
 
   getComputers() async {

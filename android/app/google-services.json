@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "505172388074-a5k55g2aeuintcja6431bk70vi721uh6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.esoft.computershop",
+            "certificate_hash": "5c3528f56c5e553f6194a395f59a71bb5678d879"
+          }
+        },
+        {
           "client_id": "505172388074-q03r4tcb4lbifga8qrkeo269cvrrrhbk.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

@@ -50,7 +50,7 @@ class PhoneController extends GetxController {
   searchPhones(String search) async {
     try {
       filteredList.value =
-          phonesList.where((p0) => p0.name.startsWith(search)).toList();
+          phonesList.where((p0) => p0.name.toLowerCase().startsWith(search.toLowerCase())).toList();
     } catch (exception) {
       print(exception);
     }

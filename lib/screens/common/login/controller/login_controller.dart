@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -17,8 +19,9 @@ class LoginController extends GetxController {
   final db = FirebaseFirestore.instance;
 
   final GoogleSignIn _googleSignIn = GoogleSignIn(
-    clientId:
-        "505172388074-bia62jfsmbno7j8dg19oe9p2jh7tv5gl.apps.googleusercontent.com",
+    clientId: Platform.isAndroid
+        ? null
+        : "505172388074-bia62jfsmbno7j8dg19oe9p2jh7tv5gl.apps.googleusercontent.com",
     scopes: ['email', 'profile'],
   );
 

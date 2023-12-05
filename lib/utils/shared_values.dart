@@ -10,6 +10,8 @@ abstract class SharedKeys {
   static const String status = "status";
 
   static const String type = "type";
+
+  static const String notificationId = "notificationId";
 }
 
 class SharedValues {
@@ -58,5 +60,12 @@ class SharedValues {
 
   void setStatus(String status) {
     _pref.setString(SharedKeys.status, status);
+  }
+
+  // notification id
+  int get notificationId => _pref.getInt(SharedKeys.notificationId) ?? 0;
+
+  void setNotificationId(int notId) {
+    _pref.setInt(SharedKeys.notificationId, notId);
   }
 }
