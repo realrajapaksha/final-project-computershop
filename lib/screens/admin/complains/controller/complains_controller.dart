@@ -36,6 +36,8 @@ class ComplainsController extends GetxController {
         }
       });
 
+      complainList.sort((b,a)=> a.date.compareTo(b.date));
+
       loading.value = false;
     } catch (exception) {
       loading.value = false;

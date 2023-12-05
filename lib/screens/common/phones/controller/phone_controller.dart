@@ -4,6 +4,9 @@ import 'package:get/get.dart';
 import '../../../../models/data_models/dashboard_item_model.dart';
 
 class PhoneController extends GetxController {
+  final priceSort = 0.obs;
+  final nameSort = 0.obs;
+
   final phonesList = <DashboardItemModel>[].obs;
   final filteredList = <DashboardItemModel>[].obs;
   final loading = false.obs;
@@ -48,11 +51,41 @@ class PhoneController extends GetxController {
   }
 
   searchPhones(String search) async {
+    priceSort.value = 0;
+    nameSort.value = 0;
     try {
       filteredList.value =
           phonesList.where((p0) => p0.name.toLowerCase().startsWith(search.toLowerCase())).toList();
     } catch (exception) {
       print(exception);
+    }
+  }
+
+  sortPriceList() {
+    nameSort.value = 0;
+    if (priceSort.value == 1) {
+      // low top
+      phonesList.sort((a, b) => a.price.compareTo(b.price));
+    } else if (priceSort.value == 2) {
+      // high top
+      phonesList.sort((b, a) => a.price.compareTo(b.price));
+    } else {
+      phonesList.shuffle();
+    }
+  }
+
+  sortNameList() {
+    priceSort.value = 0;
+    if (nameSort.value == 1) {
+      // low top
+      phonesList
+          .sort((a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()));
+    } else if (nameSort.value == 2) {
+      // high top
+      phonesList
+          .sort((b, a) => a.name.toLowerCase().compareTo(b.name.toLowerCase()));
+    } else {
+      phonesList.shuffle();
     }
   }
 }

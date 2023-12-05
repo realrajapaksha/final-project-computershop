@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../utils/app_colors.dart';
+import '../../../../utils/widgets/app_text.dart';
 import '../controller/phone_controller.dart';
 import 'widgets/phone_item.dart';
 
@@ -62,10 +63,91 @@ class _PhonesState extends State<Phones> {
                   },
                 ),
               ),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 5.0, vertical: 8),
-                child: Row(
-                  children: [],
+              Padding(
+                padding:
+                const EdgeInsets.symmetric(horizontal: 5.0, vertical: 8),
+                child: Container(
+                  padding:
+                  const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5),
+                      border: Border.all(color: Colors.blue)),
+                  child: Row(
+                    children: [
+                      const Expanded(
+                        flex: 1,
+                        child: AppText(
+                          text: "Sort By :",
+                          fontColor: AppColors.black,
+                        ),
+                      ),
+                      Expanded(
+                        flex: 2,
+                        child: InkWell(
+                          onTap: () {
+                            if (controller.priceSort.value == 0) {
+                              controller.priceSort.value = 1;
+                            } else if (controller.priceSort.value == 1) {
+                              controller.priceSort.value = 2;
+                            } else {
+                              controller.priceSort.value = 0;
+                            }
+                            controller.sortPriceList();
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(vertical: 3),
+                            color: controller.priceSort.value == 0
+                                ? Colors.transparent
+                                : controller.priceSort.value == 1
+                                ? Colors.green
+                                : Colors.orangeAccent,
+                            child: AppText(
+                              text:
+                              "Price ${controller.priceSort.value == 0 ? "" : controller.priceSort.value == 1 ? "(Low)" : "(High)"}",
+                              align: TextAlign.center,
+                              fontColor: controller.priceSort.value == 0
+                                  ? Colors.black
+                                  : AppColors.white,
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      Expanded(
+                        flex: 2,
+                        child: InkWell(
+                          onTap: () {
+                            if (controller.nameSort.value == 0) {
+                              controller.nameSort.value = 1;
+                            } else if (controller.nameSort.value == 1) {
+                              controller.nameSort.value = 2;
+                            } else {
+                              controller.nameSort.value = 0;
+                            }
+                            controller.sortNameList();
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(vertical: 3),
+                            color: controller.nameSort.value == 0
+                                ? Colors.transparent
+                                : controller.nameSort.value == 1
+                                ? Colors.green
+                                : Colors.orangeAccent,
+                            child: AppText(
+                              text:
+                              "Name ${controller.nameSort.value == 0 ? "" : controller.nameSort.value == 1 ? "(A-Z)" : "(Z-A)"}",
+                              align: TextAlign.center,
+                              fontColor: controller.nameSort.value == 0
+                                  ? Colors.black
+                                  : AppColors.white,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
               controller.loading.value
